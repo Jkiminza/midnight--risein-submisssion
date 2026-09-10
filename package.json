@@ -1,16 +1,20 @@
 {
-  "name": "midnight-leaderboard",
+  "name": "night-desk",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "workspaces": [
     "contract",
     "api",
-    "leaderboard-ui"
+    "ui",
+    "deploy"
   ],
   "scripts": {
     "compile": "cd contract && npm run compact",
-    "build": "cd contract && npm run build && cd ../api && npm run build"
+    "build": "cd contract && npm run build && cd ../api && npm run build",
+    "dev": "cd ui && npm run dev",
+    "proof-server": "docker run --rm -p 6300:6300 midnightntwrk/proof-server:8.1.0 midnight-proof-server --network preview",
+    "deploy": "npm run build && cd deploy && npm run deploy"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.4",

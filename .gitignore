@@ -61,8 +61,11 @@ jspm_packages/
 .vite/
 
 # Dev-time copies of circuit assets (originals in contract/managed/)
-leaderboard-ui/public/keys/
-leaderboard-ui/public/zkir/
+ui/public/keys/
+ui/public/zkir/
+
+# Deploy wallet seed + state (never commit)
+deploy/.env
 
 # ai scratch work
 .midnight-expert
