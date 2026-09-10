@@ -1,146 +1,88 @@
-# Midnight Leaderboard
+# Night Desk — private invoices on Midnight
 
-An arcade-style privacy-preserving leaderboard built on the [Midnight Network](https://midnight.network). Every score submission creates a new entry, just like an arcade cabinet. Players choose how their identity appears: anonymous, public wallet address, or custom display name. Prove ownership of your scores via ZK proofs without revealing your identity.
+A private invoice ledger on the [Midnight](https://midnight.network) **Preview** network.
 
-Live on Preprod: [midnight-leaderboard.vercel.app](https://midnight-leaderboard.vercel.app)
+The **amount and memo of every invoice are private**. They exist only inside a zero-knowledge proof and in the wallet of the creator; the public ledger stores only:
 
-## What It Demonstrates
+- the invoice **id**
+- its **status** (open → accepted → settled, or cancelled)
+- the creator's **identity hash** (used to enforce that only the creator may cancel)
 
-| Concept | What You Learn |
-|---------|---------------|
-| `Map<Uint<64>, ScoreEntry>` | Storing structured data on-chain with auto-incrementing keys |
-| Privacy modes | Anonymous, public address, or custom name via conditional witness invocation |
-| Witness functions | Private data (custom name) enters the ZK circuit on demand |
-| Ownership verification | Prove you own an entry without revealing your identity |
-| Browser DApp | Lace wallet integration, in-browser ZK proving, real-time indexer reads |
-| Production deployment | Vercel (frontend) + Railway (proof server) |
+Nobody else — not even through the public ledger — can see how much an invoice is for or what it says.
 
-## Tutorial
+## Deployed contract
 
-Follow the step-by-step tutorial in [tutorials/](./tutorials/) to rebuild this DApp from scratch. The tutorial covers the Compact smart contract, TypeScript integration, browser DApp with Lace wallet, and production deployment.
+| | |
+|---|---|
+| Network | Midnight Preview |
+| Contract address | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` |
+| Circuit identity | `night-desk` |
 
-## Project Structure
+The address is also baked into the frontend (`ui/.env.preview → VITE_DEFAULT_CONTRACT`), so the UI can join the deployed contract straight away.
 
-```
-midnight-leaderboard/
-├── contract/                        # Compact smart contract
-│   ├── leaderboard.compact          # Leaderboard with anonymous/custom names + verification
-│   ├── src/
-│   │   ├── index.ts                 # Exports CompiledLeaderboardContract + witnesses
-│   │   └── witnesses.ts             # getCustomName witness (private data → ZK proof)
-│   └── managed/                     # Compiler output (committed for Vercel builds)
-├── api/                             # Shared business logic (platform-agnostic)
-│   └── src/
-│       ├── index.ts                 # LeaderboardAPI: deploy(), join(), submitScore(), verifyOwnership()
-│       ├── common-types.ts          # Provider types, circuit keys, derived state
-│       └── utils/index.ts           # decodeDisplayName with generated anonymous names
-├── leaderboard-ui/                  # React + Vite frontend
-│   ├── src/
-│   │   ├── App.tsx                  # Game UI + leaderboard + verification
-│   │   ├── App.css                  # Midnight-branded dark theme
-│   │   ├── main.tsx                 # Buffer polyfill + React mount
-│   │   ├── contexts/
-│   │   │   └── BrowserLeaderboardManager.ts  # Lace wallet → providers bridge
-│   │   ├── hooks/
-│   │   │   └── useLeaderboard.ts    # Read-only indexer queries (no wallet needed)
-│   │   └── in-memory-private-state-provider.ts
-│   ├── .env.preprod                 # Production config (Railway proof server URL)
-│   └── vite.config.ts               # WASM plugins for compact-runtime in browser
-├── tutorials/                       # Step-by-step build tutorial
-├── proof-server/                    # Railway deployment
-│   └── Dockerfile                   # Midnight proof server image
-├── vercel.json                      # Vercel build config
-└── package.json                     # Workspaces: contract, api, leaderboard-ui
-```
+## How it works
+
+- A creator writes an amount (their currency) and a memo (≤ 32 chars). A `createInvoice` proof binds them; only the id, status `open`, and the creator's `ownerCommitment(persistentHash("nightdesk:owner:" ‖ sk))` reach the ledger.
+- A payee accepts → status flips to `accepted` without the private amount ever moving.
+- On payment, the creator marks it `settled`, a public verifiable settlement receipt.
+- Only the creator can `cancel` — enforced inside the circuit via their identity hash.
+
+Statuses are read from the public indexer (no wallet needed to browse). Creating/accepting/settling/cancelling requires the [Lace](https://lace.io) wallet connected to Preview.
+
+## Monorepo layout
+
+| package | purpose |
+|---|---|
+| `contract` | Compact contract `invoice.compact` + compiled circuits (`managed/night-desk`) + TS bindings. |
+| `api` | `InvoiceAPI` — deploy/join + createInvoice/acceptInvoice/settleInvoice/cancelInvoice over the ledger. |
+| `ui` | React + Vite frontend (preview mode). |
+| `deploy` | Headless deployment script for Midnight Preview. |
+| `proof-server` | Docker recipe for the local proof server (port 6300). |
 
 ## Prerequisites
 
-- [Node.js v22+](https://nodejs.org/) (via `nvm use 22`)
-- [Compact toolchain](https://docs.midnight.network/getting-started/installation#install-compact)
-- [Lace wallet](https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk) browser extension
-- [Docker](https://docs.docker.com/desktop/) (for local proof server)
+- Node 20+ (built and verified on Node 22)
+- Docker (proof server)
+- For **using** the dapp: the [Lace](https://lace.io) browser extension, unlocked and pointed at **Preview**
+- For **deploying**: a wallet funded with tNIGHT from the [Preview faucet](https://midnight-tmnight-preview.nethermind.dev/)
 
-## Quick Start
-
-### 1. Install, compile, and build
+## Try it
 
 ```bash
-nvm use 22
 npm install
-npm run compile
-npm run build
+
+# 1. run the proof server (background)
+npm run proof-server
+
+# 2. start the frontend
+npm run dev          # opens http://localhost:3000
 ```
 
-### 2. Start the proof server
+Open http://localhost:3000, **Connect Wallet** in Lace (set to Preview), and create an invoice. Anyone can join the contract by pasting its address.
+
+## Build and compile
 
 ```bash
-docker run -d -p 6300:6300 midnightntwrk/proof-server:8.0.3 -- midnight-proof-server --network preprod
+npm run compile                          # compact compile contract/invoice.compact
+npm run build                            # contract + api
+cd ui && npm run build                   # production frontend (ui/dist)
 ```
 
-### 3. Start the UI
+## Deploy from scratch
 
 ```bash
-cd leaderboard-ui
-npm run dev
+npm run proof-server                     # must be running first
+npm run deploy                           # builds, generates a wallet, waits for tNIGHT, deploys, prints address
 ```
 
-Open `http://localhost:3000` in Chrome with Lace installed.
+On first run the script creates a wallet seed in `deploy/.env`, prints the unshielded address, and waits for tNIGHT — fund that address from the [faucet](https://midnight-tmnight-preview.nethermind.dev/), and it proceeds to register for DUST and deploy. The deployed address is written into `ui/.env.preview` automatically, so the UI picks it up on next start.
 
-### 4. Play
+## Support matrix
 
-1. The leaderboard loads immediately from the indexer (no wallet needed to view)
-2. Connect your Lace wallet to submit scores
-3. Click **Switch Contract** then **Deploy New** to deploy your own leaderboard
-4. Play the click challenge
-5. Submit your score as Anonymous, Public, or Custom
-6. Click "Prove" on any entry to verify ownership via ZK proof
+compact toolchain `0.31.1` · compact runtime `0.16.0` · compact-js `2.5.1` · wallet-sdk `1.2.0` · midnight-js `4.1.1` · proof server `8.1.0`
 
-## Contract
+## Notes
 
-### Privacy Modes
-
-| Mode | Display Name | How It Works |
-|------|-------------|-------------|
-| Anonymous | Generated name (e.g., "Crimson Tiger") | `persistentHash(publicKey)` stored as hash bytes, UI generates readable name |
-| Public | Truncated wallet address | Wallet address sent via witness as custom name |
-| Custom | Player's chosen name | Player types a name, sent via `getCustomName()` witness |
-
-All modes store `ownerHash = persistentHash(publicKey)` as `Bytes<32>` on each entry, enabling ownership verification without revealing identity.
-
-### Circuits
-
-| Circuit | Purpose |
-|---------|---------|
-| `submitScore(score, useCustomName)` | Create a new leaderboard entry |
-| `verifyOwnership(targetEntryId)` | Prove you own an entry (for prizes, badges) |
-| `getEntryCount()` | Read total number of entries |
-
-## Production Deployment
-
-The DApp runs on two services: Vercel for the static frontend (free) and Railway for the proof server ($5/mo).
-
-The proof server is needed because browser JavaScript cannot reach Midnight's public proof server directly (CORS). Railway runs its own instance of the proof server Docker image, which accepts requests from any origin.
-
-### Proof server (Railway)
-
-1. Go to [railway.app](https://railway.app) and sign in with GitHub
-2. Create a new project from this repo
-3. Set **Root Directory** to `proof-server`
-4. In **Settings**, then **Networking**, set port to `6300` and generate a domain
-5. Copy the HTTPS URL
-
-### Frontend (Vercel)
-
-1. Import the repo into [Vercel](https://vercel.com)
-2. Vercel reads `vercel.json` automatically
-3. Make sure **Root Directory** is empty (not set to a subdirectory)
-4. Deploy
-
-Circuit keys are committed in `contract/managed/` so no Compact compiler is needed on Vercel.
-
-
-## License
-
-Apache-2.0
-
-Built on the [Midnight Network](https://midnight.network).
+- `ui/.env` and `deploy/.env` are gitignored (the latter holds the deploy wallet seed — never commit it).
+- `ui/.env.preview` is committed and contains only non-secret configuration.
+- The proof server holds circuit parameters; it does its heavy lifting on the first request for each circuit.
