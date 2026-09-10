@@ -1,3 +1,3 @@
-FROM midnightntwrk/proof-server:8.0.3
+FROM midnightntwrk/proof-server:8.1.0
 USER 1000
-CMD ["midnight-proof-server", "--network", "preprod"]
+CMD ["midnight-proof-server", "--network", "preview"]
