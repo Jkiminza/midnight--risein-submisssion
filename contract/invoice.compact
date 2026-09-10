@@ -1,0 +1,82 @@
+/**
+ * Night Desk — private invoices, public settlement.
+ *
+ * The public ledger only stores the invoice id, its status and the
+ * creator's identity hash. The private amount and memo are circuit inputs
+ * and never reach the ledger; they are bound into the proof at creation
+ * time and stay with the parties' local state until accepted or settled.
+ *
+ * status: 0 = open, 1 = accepted, 2 = settled, 3 = cancelled
+ */
+pragma language_version 0.23;
+
+import CompactStandardLibrary;
+
+struct InvoicePublic {
+  status: Uint<8>,
+  creatorHash: Bytes<32>,
+}
+
+export ledger nextId: Counter;
+export ledger invoices: Map<Uint<64>, InvoicePublic>;
+
+witness localSecretKey(): Bytes<32>;
+
+export circuit ownerCommitment(sk: Bytes<32>): Bytes<32> {
+  return persistentHash<Vector<2, Bytes<32>>>([pad(32, "nightdesk:owner:"), sk]);
+}
+
+/**
+ * Create an invoice. Amount and memo are private — constrained but
+ * never disclosed. Only the new id, the open status and the creator's
+ * identity hash become part of the ledger.
+ */
+export circuit createInvoice(amount: Uint<64>, memo: Bytes<32>): Uint<64> {
+  assert(amount != 0, "amount must be non-zero");
+  assert(memo != default<Bytes<32>>, "memo required");
+
+  nextId.increment(1);
+  const entryId = disclose(nextId.read() as Uint<64>);
+
+  invoices.insert(entryId, InvoicePublic {
+    status: 0,
+    creatorHash: disclose(ownerCommitment(localSecretKey())),
+  });
+
+  return entryId;
+}
+
+/**
+ * Accept an invoice. Only an open invoice can be accepted. The private
+ * amount is never written to the ledger.
+ */
+export circuit acceptInvoice(id: Uint<64>): [] {
+  const entryId = disclose(id);
+  assert(invoices.member(entryId), "invoice not found");
+  const entry = invoices.lookup(entryId);
+  assert(entry.status == 0, "invoice not open");
+  invoices.insert(entryId, InvoicePublic { status: 1, creatorHash: entry.creatorHash });
+}
+
+/**
+ * Settle an invoice. Only an accepted invoice can be settled.
+ */
+export circuit settleInvoice(id: Uint<64>): [] {
+  const entryId = disclose(id);
+  assert(invoices.member(entryId), "invoice not found");
+  const entry = invoices.lookup(entryId);
+  assert(entry.status == 1, "invoice not accepted");
+  invoices.insert(entryId, InvoicePublic { status: 2, creatorHash: entry.creatorHash });
+}
+
+/**
+ * Cancel an invoice. Only the creator can cancel, and only while it is open.
+ */
+export circuit cancelInvoice(id: Uint<64>): [] {
+  const entryId = disclose(id);
+  assert(invoices.member(entryId), "invoice not found");
+  const entry = invoices.lookup(entryId);
+  assert(entry.status == 0, "invoice not open");
+  assert(ownerCommitment(localSecretKey()) == entry.creatorHash, "not the creator");
+  invoices.insert(entryId, InvoicePublic { status: 3, creatorHash: entry.creatorHash });
+}
