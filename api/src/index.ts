@@ -1,5 +1,5 @@
 /**
- * Shared business logic for the leaderboard contract.
+ * Shared business logic for the Night Desk contract.
  *
  * Platform-agnostic — works from browser (Lace) or CLI (wallet-sdk).
  * Each platform provides its own provider implementations.
@@ -7,31 +7,34 @@
  * @packageDocumentation
  */
 
-import * as Leaderboard from '../../contract/managed/leaderboard/contract/index.js';
+import * as NightDesk from '../../contract/managed/night-desk/contract/index.js';
 import { type ContractAddress } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import { type Logger } from 'pino';
 import {
-  type LeaderboardDerivedState,
-  type LeaderboardEntry,
-  type LeaderboardProviders,
-  type DeployedLeaderboardContract,
-  leaderboardPrivateStateKey,
+  type NightDeskDerivedState,
+  type InvoiceEntry,
+  type NightDeskProviders,
+  type DeployedNightDeskContract,
+  nightDeskPrivateStateKey,
 } from './common-types.js';
-import { CompiledLeaderboardContract, createLeaderboardPrivateState, type LeaderboardPrivateState } from '../../contract/src/index';
-import { setCustomName } from '../../contract/src/witnesses.js';
+import {
+  CompiledNightDeskContract,
+  createNightDeskPrivateState,
+  type NightDeskPrivateState,
+} from '../../contract/src/index';
 import * as utils from './utils/index.js';
 import { deployContract, findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import { map, type Observable } from 'rxjs';
 
 /**
- * API for a deployed leaderboard contract.
+ * API for a deployed Night Desk contract.
  *
- * Created via `LeaderboardAPI.deploy()` (admin) or `LeaderboardAPI.join()` (player).
+ * Created via `InvoiceAPI.deploy()` (admin) or `InvoiceAPI.join()` (participant).
  */
-export class LeaderboardAPI {
+export class InvoiceAPI {
   private constructor(
-    public readonly deployedContract: DeployedLeaderboardContract,
-    providers: LeaderboardProviders,
+    public readonly deployedContract: DeployedNightDeskContract,
+    providers: NightDeskProviders,
     private readonly logger?: Logger,
   ) {
     this.deployedContractAddress = deployedContract.deployTxData.public.contractAddress;
@@ -40,63 +43,70 @@ export class LeaderboardAPI {
     this.state$ = providers.publicDataProvider
       .contractStateObservable(this.deployedContractAddress, { type: 'latest' })
       .pipe(
-        map((contractState) => Leaderboard.ledger(contractState.data)),
-        map((ledgerState): LeaderboardDerivedState => {
-          const entries: LeaderboardEntry[] = [];
-          for (const [key, entry] of ledgerState.scores) {
-            entries.push({
+        map((contractState) => NightDesk.ledger(contractState.data)),
+        map((ledgerState): NightDeskDerivedState => {
+          const invoices: InvoiceEntry[] = [];
+          for (const [key, entry] of ledgerState.invoices) {
+            invoices.push({
               id: Number(key),
-              score: Number(entry.score),
-              displayName: utils.decodeDisplayName(entry.displayName, Number(key), Number(entry.score)),
-              ownerHash: entry.ownerHash.toString(),
+              status: Number(entry.status) as InvoiceEntry['status'],
+              creatorHash: entry.creatorHash.toString(),
             });
           }
-          entries.sort((a, b) => b.score - a.score);
-          return { entryCount: Number(ledgerState.nextId), entries };
+          invoices.sort((a, b) => a.id - b.id);
+          return { invoiceCount: Number(ledgerState.nextId), invoices };
         }),
       );
   }
 
   readonly deployedContractAddress: ContractAddress;
-  readonly state$: Observable<LeaderboardDerivedState>;
+  readonly state$: Observable<NightDeskDerivedState>;
 
-  /** Submit a score. If customName is provided, it's used as display name via witness. */
-  async submitScore(score: number, customName?: string): Promise<void> {
-    if (customName) {
-      setCustomName(customName);
-    }
-    await (this.deployedContract as any).callTx.submitScore(BigInt(score), !!customName);
+  /** Create an invoice. Amount and memo are private — they never reach the ledger. */
+  async createInvoice(amount: bigint, memoBytes: Uint8Array): Promise<bigint> {
+    const result = await (this.deployedContract as any).callTx.createInvoice(amount, memoBytes);
+    return result.public.returnValue as bigint;
   }
 
-  /** Prove ownership of a leaderboard entry. The proof is private — use it to claim a prize or verify identity. */
-  async verifyOwnership(entryId: number): Promise<void> {
-    await (this.deployedContract as any).callTx.verifyOwnership(BigInt(entryId));
+  /** Accept an open invoice. Only the payee should do this. */
+  async acceptInvoice(id: number): Promise<void> {
+    await (this.deployedContract as any).callTx.acceptInvoice(BigInt(id));
   }
 
-  /** Deploy a new leaderboard contract (admin operation). */
-  static async deploy(providers: LeaderboardProviders, secretKey: Uint8Array, logger?: Logger): Promise<LeaderboardAPI> {
+  /** Settle an accepted invoice. */
+  async settleInvoice(id: number): Promise<void> {
+    await (this.deployedContract as any).callTx.settleInvoice(BigInt(id));
+  }
+
+  /** Cancel an open invoice. On-chain, only the creator can cancel. */
+  async cancelInvoice(id: number): Promise<void> {
+    await (this.deployedContract as any).callTx.cancelInvoice(BigInt(id));
+  }
+
+  /** Deploy a new Night Desk contract (admin operation). */
+  static async deploy(providers: NightDeskProviders, secretKey: Uint8Array, logger?: Logger): Promise<InvoiceAPI> {
     const deployedContract = await deployContract(providers as any, {
-      compiledContract: CompiledLeaderboardContract,
-      privateStateId: leaderboardPrivateStateKey,
-      initialPrivateState: createLeaderboardPrivateState(secretKey),
+      compiledContract: CompiledNightDeskContract,
+      privateStateId: nightDeskPrivateStateKey,
+      initialPrivateState: createNightDeskPrivateState(secretKey),
     });
-    return new LeaderboardAPI(deployedContract, providers, logger);
+    return new InvoiceAPI(deployedContract, providers, logger);
   }
 
-  /** Join an existing leaderboard contract (player operation). */
+  /** Join an existing Night Desk contract (participant operation). */
   static async join(
-    providers: LeaderboardProviders,
+    providers: NightDeskProviders,
     contractAddress: ContractAddress,
     secretKey: Uint8Array,
     logger?: Logger,
-  ): Promise<LeaderboardAPI> {
+  ): Promise<InvoiceAPI> {
     const deployedContract = await findDeployedContract(providers as any, {
       contractAddress,
-      compiledContract: CompiledLeaderboardContract,
-      privateStateId: leaderboardPrivateStateKey,
-      initialPrivateState: createLeaderboardPrivateState(secretKey),
+      compiledContract: CompiledNightDeskContract,
+      privateStateId: nightDeskPrivateStateKey,
+      initialPrivateState: createNightDeskPrivateState(secretKey),
     });
-    return new LeaderboardAPI(deployedContract, providers, logger);
+    return new InvoiceAPI(deployedContract, providers, logger);
   }
 }
 
