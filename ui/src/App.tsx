@@ -286,9 +286,8 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="header-left">
-          <span className="logo-mark">◍</span>
-          <span className="title">Night Desk</span>
-          <span className="title-sub">private invoices</span>
+          <img src="/night-desk-logo.png" alt="Night Desk Logo" className="logo-image" />
+          <span className="title"></span>
         </div>
         <div className="header-right">
           {isConnected && address ? (
@@ -460,16 +459,6 @@ export default function App() {
                 </div>
               </div>
             )}
-          </section>
-
-          <section className="card how-card">
-            <h2>How it works</h2>
-            <ul className="how-list">
-              <li><span className="how-idx">1</span>Creator enters amount + memo locally. The proof binds them, the ledger stores only the id & status.</li>
-              <li><span className="how-idx">2</span>Payee accepts. The public state flips to <em className="st-accepted">Accepted</em> — the private amount never moves.</li>
-              <li><span className="how-idx">3</span>On payment, mark the invoice <em className="st-settled">Settled</em> — a public, verifiable settlement proof.</li>
-              <li><span className="how-idx">4</span>Only the creator can <em className="st-cancelled">Cancel</em>, enforced in-circuit via an identity hash.</li>
-            </ul>
           </section>
         </div>
       </main>
