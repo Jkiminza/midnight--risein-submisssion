@@ -37,6 +37,11 @@ export class BrowserNightDeskManager {
 
   readonly deployments$: Observable<Array<Observable<NightDeskDeployment>>> = this.#deploymentsSubject;
 
+  disconnect(): void {
+    this.#initializedProviders = undefined;
+    this.#deploymentsSubject.next([]);
+  }
+
   resolve(contractAddress?: ContractAddress): Observable<NightDeskDeployment> {
     const deployments = this.#deploymentsSubject.value;
     const existing = deployments.find(
@@ -67,7 +72,13 @@ export class BrowserNightDeskManager {
   }
 
   private getProviders(): Promise<NightDeskProviders> {
-    return this.#initializedProviders ?? (this.#initializedProviders = initializeProviders(this.logger));
+    if (!this.#initializedProviders) {
+      this.#initializedProviders = initializeProviders(this.logger).catch((error) => {
+        this.#initializedProviders = undefined;
+        throw error;
+      });
+    }
+    return this.#initializedProviders;
   }
 
   private async run(
@@ -104,11 +115,26 @@ const isChannelDown = (e: unknown): boolean => {
   return s.includes('shutdown') || s.includes('Remote API') || s.includes('channel');
 };
 
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+const connectWithRetry = async (logger: Logger, networkId: string, attempts = 3): Promise<ConnectedAPI> => {
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await connectToWallet(logger, networkId);
+    } catch (error: unknown) {
+      if (i === attempts - 1) throw error;
+      logger.warn(`wallet connect attempt ${i + 1} failed; retrying…`);
+      await sleep(1_500 * (i + 1));
+    }
+  }
+  throw new Error('Could not connect to Midnight Lace wallet.');
+};
+
 const initializeProviders = async (logger: Logger): Promise<NightDeskProviders> => {
   const networkId = import.meta.env.VITE_NETWORK_ID as NetworkId;
   setNetworkId(networkId);
 
-  let connectedAPI = await connectToWallet(logger, networkId);
+  let connectedAPI = await connectWithRetry(logger, networkId);
 
   const reconnect = async (): Promise<void> => {
     logger.warn('Lace connection lost; reconnecting…');
@@ -158,10 +184,13 @@ const initializeProviders = async (logger: Logger): Promise<NightDeskProviders> 
 
 const getFirstCompatibleWallet = (): InitialAPI | undefined => {
   if (!window.midnight) return undefined;
-  return Object.values(window.midnight).find(
+  const wallets = Object.values(window.midnight).filter(
     (wallet): wallet is InitialAPI =>
-      !!wallet && typeof wallet === 'object' && 'apiVersion' in wallet &&
-      semver.satisfies(wallet.apiVersion, COMPATIBLE_CONNECTOR_API_VERSION),
+      !!wallet && typeof wallet === 'object' && 'apiVersion' in wallet && typeof (wallet as InitialAPI).connect === 'function',
+  );
+  return (
+    wallets.find((wallet) => semver.satisfies(wallet.apiVersion, COMPATIBLE_CONNECTOR_API_VERSION)) ??
+    wallets[0]
   );
 };
 
