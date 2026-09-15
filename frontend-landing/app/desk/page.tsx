@@ -10,13 +10,13 @@
  * Creating/accepting/settling/cancelling requires Lace.
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { Copy, FileText, List, LockKeyhole, Receipt, ShieldCheck, Wallet, LogOut, Loader2, ChevronRight } from 'lucide-react';
+import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react';
 import type { InitialAPI, ConnectedAPI } from '@midnight-ntwrk/dapp-connector-api';
 import { useInvoices, type InvoiceView } from './hooks/useInvoices';
 import { BrowserNightDeskManager } from './contexts/BrowserNightDeskManager';
 import { INVOICE_STATUS } from '../../../api/dist/common-types.js';
 import pino from 'pino';
+import InvoiceWorkspace from '../../components/InvoiceWorkspace';
 import './globals.css';
 
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID ?? 'preview';
@@ -54,6 +54,39 @@ export function encodeMemo(memo: string): Uint8Array {
   return out;
 }
 
+// ── Inline icons (lucide-style strokes) ──────────────────────────────────
+
+function Icon({ children, size = 16 }: { children: ReactNode; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  );
+}
+
+const WalletIcon = ({ size = 18 }: { size?: number }) => (
+  <Icon size={size}><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></Icon>
+);
+const CopyIcon = ({ size = 14 }: { size?: number }) => (
+  <Icon size={size}><rect x="8" y="8" width="14" height="14" rx="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></Icon>
+);
+const FileTextIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></Icon>
+);
+const ListIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></Icon>
+);
+const ReceiptIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></Icon>
+);
+const LockIcon = ({ size = 19 }: { size?: number }) => (
+  <Icon size={size}><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>
+);
+const ShieldIcon = ({ size = 18 }: { size?: number }) => (
+  <Icon size={size}><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></Icon>
+);
+
 async function copyToClipboard(text: string): Promise<boolean> {
   try { await navigator.clipboard.writeText(text); return true; }
   catch { return false; }
@@ -88,27 +121,11 @@ function extractErrorMessage(e: any): string {
   try { return JSON.stringify(e); } catch { return String(e); }
 }
 
-const STATUS_META: Record<number, { label: string; cls: string; dot: string }> = {
-  [INVOICE_STATUS.OPEN]: {
-    label: 'Open',
-    cls: 'bg-[#FFF4E5] text-[#B45309]',
-    dot: 'bg-[#F59E0B]',
-  },
-  [INVOICE_STATUS.ACCEPTED]: {
-    label: 'Accepted',
-    cls: 'bg-[#E8F1FE] text-[#1D4ED8]',
-    dot: 'bg-[#3B82F6]',
-  },
-  [INVOICE_STATUS.SETTLED]: {
-    label: 'Settled',
-    cls: 'bg-[#E7F6EF] text-[#166534]',
-    dot: 'bg-[#35B86B]',
-  },
-  [INVOICE_STATUS.CANCELLED]: {
-    label: 'Cancelled',
-    cls: 'bg-[#EEF0F5] text-[#6B7280]',
-    dot: 'bg-[#9CA3AF]',
-  },
+const STATUS_META: Record<number, { label: string; icon: string; cls: string }> = {
+  [INVOICE_STATUS.OPEN]: { label: 'Open', icon: '◐', cls: 'st-open' },
+  [INVOICE_STATUS.ACCEPTED]: { label: 'Accepted', icon: '●', cls: 'st-accepted' },
+  [INVOICE_STATUS.SETTLED]: { label: 'Settled', icon: '✔', cls: 'st-settled' },
+  [INVOICE_STATUS.CANCELLED]: { label: 'Cancelled', icon: '◌', cls: 'st-cancelled' },
 };
 
 function getKnownInvoices(): Record<string, LocalInvoice> {
@@ -145,7 +162,7 @@ export default function DeskPage() {
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [actionBusy, setActionBusy] = useState<number | null>(null);
-  const [view, setView] = useState<'invoice' | 'ledger' | 'detail'>('invoice');
+  const [view, setView] = useState<'ledger' | 'detail' | 'invoice'>('invoice');
 
   const managerRef = useRef<BrowserNightDeskManager | null>(null);
 
@@ -197,13 +214,12 @@ export default function DeskPage() {
     setWallet(null);
     setAddress(null);
     setWalletState('ready');
-    getManager().disconnect();
-  }, [getManager]);
+  }, []);
 
   // ── Deployment helper ───────────────────────────────────────────────
 
   const resolveDeployment = useCallback(async (manager: BrowserNightDeskManager) => {
-    const deployment$ = manager.resolve((contractAddress || undefined) as any);
+    const deployment$ = manager.resolve(contractAddress as any);
     const result = await new Promise<any>((resolve, reject) => {
       const sub = deployment$.subscribe((d) => {
         if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
@@ -232,21 +248,26 @@ export default function DeskPage() {
     }
   }, [wallet, getManager, resolveDeployment]);
 
-  const joinContract = useCallback(() => {
-    const addr = joinInput.trim();
-    if (!addr) return;
-    if (!/^[0-9a-fA-F]{64}$/.test(addr)) {
-      setError('Invalid contract address. Must be 64 hex characters.');
-      return;
+  const joinContract = useCallback(async () => {
+    if (!joinInput.trim()) return;
+    setDeploying(true);
+    setError(null);
+    try {
+      const manager = getManager();
+      const result = await resolveDeployment(manager);
+      setContractAddress(result.api.deployedContractAddress);
+      setShowJoinPanel(false);
+    } catch (e: any) {
+      setError(friendlyError(e));
+    } finally {
+      setDeploying(false);
     }
-    setContractAddress(addr);
-    setShowJoinPanel(false);
-    setJoinInput('');
-  }, [joinInput]);
+  }, [joinInput, getManager, resolveDeployment]);
 
   const handleCopy = useCallback(async () => {
     if (!contractAddress) return;
-    if (await copyToClipboard(contractAddress)) {
+    const success = await copyToClipboard(contractAddress);
+    if (success) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -299,353 +320,179 @@ export default function DeskPage() {
     }
   }, [wallet, getManager, resolveDeployment, refresh]);
 
-  // ── Derived state ────────────────────────────────────────────────────
+  // ── Render ───────────────────────────────────────────────────────────
 
   const isConnected = walletState === 'connected';
   const selected: InvoiceView | undefined = invoices.find((i) => i.id === selectedId);
   const selectedLocal = selected ? knownInvoices[String(selected.id)] : undefined;
 
-  const statusPill = contractAddress
-    ? <><span className="h-2 w-2 rounded-full bg-[#35B86B]" />Connected</>
-    : <><span className="h-2 w-2 rounded-full bg-[#C7CBD9]" />No contract</>;
-
-  const walletChip = isConnected && address ? (
-    <div className="flex items-center gap-2 rounded-full border border-[#D9DCF0] bg-[#F7F7FD] px-3.5 py-2 font-mono text-xs font-medium text-[#29375F]">
-      <span className="h-2 w-2 rounded-full bg-[#35B86B]" />
-      {truncAddr(address)}
-      <button type="button" onClick={disconnect} aria-label="Disconnect wallet" className="text-[#8A91A9] transition hover:text-[#29375F]">
-        <LogOut size={14} />
-      </button>
-    </div>
-  ) : walletState === 'detecting' || walletState === 'connecting' ? (
-    <div className="flex items-center gap-2 rounded-full border border-[#D9DCF0] bg-[#F7F7FD] px-3.5 py-2 text-xs font-semibold text-[#69728C]">
-      <Loader2 size={14} className="animate-spin" />
-      {walletState === 'detecting' ? 'Detecting wallet…' : 'Connecting…'}
-    </div>
-  ) : walletState === 'no-wallet' ? (
-    <a href="https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk" target="_blank" rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 rounded-full bg-[#FF6A00] px-4 py-2 text-xs font-semibold text-[#111827] shadow-[0_4px_14px_rgba(255,106,0,0.25)]">
-      Install Lace <ChevronRight size={14} />
-    </a>
-  ) : (
-    <button type="button" onClick={connect}
-      className="inline-flex items-center gap-2 rounded-full bg-[#29375F] px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-[#1F2C50]">
-      <Wallet size={14} /> Connect Wallet
-    </button>
-  );
-
-  const tabButton = (id: 'invoice' | 'ledger' | 'detail', label: string, IconComp: typeof FileText) => (
-    <button type="button" onClick={() => setView(id)}
-      className={`flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-medium transition ${
-        view === id
-          ? 'bg-[#FF6A00] font-semibold text-[#111827] shadow-[0_6px_18px_rgba(255,106,0,0.20)]'
-          : 'text-[#69728C] hover:bg-white/50 hover:text-[#29375F]'
-      }`}>
-      <IconComp size={16} strokeWidth={1.8} />
-      {label}
-    </button>
-  );
-
   return (
-    <div className="min-h-screen bg-[#F0F1F8] text-[#1F2C50]">
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
-        <div className="flex items-center gap-3">
-          <img src="/night-desk-logo.png" alt="Night Desk Logo" className="h-9 w-auto" />
-          <span className="hidden text-sm font-semibold text-[#29375F] sm:block">Night Desk</span>
+    <div className="app">
+      <header className="header">
+        <div className="header-left">
+          <img src="/night-desk-logo.png" alt="Night Desk Logo" className="logo-image" />
         </div>
-        <div className="flex items-center gap-3">
-          <span className="hidden rounded-full bg-[#E9EBF7] px-3 py-1.5 text-xs font-semibold text-[#52657F] md:block">
-            <span className="mr-1.5 text-[#35B86B]">●</span>preview
+        <div className="header-center">
+          <span className="header-network">
+            <span className="header-dot">•</span>
+            <span className="faint">net</span> preview
           </span>
-          {walletChip}
+        </div>
+        <div className="header-right">
+          {isConnected && address ? (
+            <div className="chip"><span className="dot" />{truncAddr(address)}<button className="chip-disconnect" onClick={disconnect} title="Disconnect wallet" aria-label="Disconnect wallet">⏻</button></div>
+          ) : walletState === 'detecting' || walletState === 'connecting' ? (
+            <div className="chip muted"><span className="spinner" />{walletState === 'detecting' ? 'Detecting…' : 'Connecting…'}</div>
+          ) : walletState === 'no-wallet' ? (
+            <a className="chip warn" href="https://chromewebstore.google.com/detail/lace/gafhhkghbfjjkeiendhlofajokpaflmk" target="_blank" rel="noopener noreferrer">Install Lace →</a>
+          ) : (
+            <button className="btn-connect" onClick={connect}>Connect Wallet</button>
+          )}
         </div>
       </header>
+      <div className="header-divider"></div>
 
-      {/* ── Error bar ──────────────────────────────────────────────────── */}
-      {error && (
-        <div className="mx-auto mb-0 flex max-w-6xl items-center justify-between gap-4 rounded-[16px] border border-[#F4C7C7] bg-[#FDECEC] px-4 py-3 text-sm text-[#8C2F2F]">
-          <span>{error}</span>
-          <button type="button" onClick={() => setError(null)} className="font-semibold text-[#8C2F2F]/70 hover:text-[#8C2F2F]">✕</button>
+      <section className="hero-section">
+        <div className="hero-breadcrumb">
+          <span className="breadcrumb-dot">•</span>
+          <span>Private invoicing</span>
+          <span className="breadcrumb-dot">•</span>
+          <span>Midnight Preview</span>
+          <span className="breadcrumb-dot">•</span>
+          <span>Ledger v8</span>
         </div>
+        <h1 className="hero-title">Private invoicing, without the exposure.</h1>
+        <p className="hero-subtitle">Create invoices using zero-knowledge proofs. Your amount, memo, and payment details stay on this device — only the status reaches the ledger.</p>
+      </section>
+      <div className="hero-divider"></div>
+
+      <section className="requirements-section">
+        <div className="requirements-text">
+          <span className="requirements-dot">•</span>
+          <span className="requires">Requires</span>
+          <span>Midnight</span>
+          <span className="bold">Lace</span>
+          <span>on</span>
+          <span className="bold underline">Preview</span>
+          <span>funded with</span>
+          <span className="bold">tNight</span>
+        </div>
+      </section>
+      <div className="hero-divider"></div>
+
+      {error && (
+        <div className="error-bar"><span>{error}</span><button onClick={() => setError(null)}>✕</button></div>
       )}
 
-      {/* ── Main workspace ─────────────────────────────────────────────── */}
-      <main className="mx-auto max-w-6xl px-4 py-2 pb-16 sm:px-6">
-        <section className="w-full">
-          <div className="rounded-[28px] border border-[#D9DCF0] bg-[#F7F7FD]/90 p-4 shadow-[0_18px_50px_rgba(45,55,100,0.08)] sm:p-5 md:p-6">
+      <main className="layout">
+        <div className="col">
+          <InvoiceWorkspace />
 
-            {/* Contract header */}
-            <div className="flex flex-col gap-4 border-b border-[#E1E3F0] pb-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#EEF0FA] text-[#29375F]">
-                  <Wallet size={18} strokeWidth={1.8} />
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#7A829D]">Contract</span>
-                  <span className="font-mono text-sm font-medium text-[#29375F]">
-                    {contractAddress ? truncAddr(contractAddress) : 'not deployed'}
-                  </span>
-                  <button type="button" onClick={handleCopy} aria-label="Copy contract address"
-                    className="text-[#8A91A9] transition hover:text-[#29375F]">
-                    {copied ? <span className="text-[#35B86B]">✓</span> : <Copy size={14} />}
-                  </button>
-                  <button type="button" onClick={() => setShowJoinPanel(!showJoinPanel)}
-                    className="text-sm font-medium text-[#596581] transition hover:text-[#29375F]">
-                    {showJoinPanel ? 'Cancel' : 'Switch'}
-                  </button>
-                </div>
-              </div>
-              <div className={`flex w-fit items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold ${contractAddress ? 'bg-[#EEF7F1] text-[#52675A]' : 'bg-[#EEF0F5] text-[#6B7280]'}`}>
-                {statusPill}
-              </div>
+          <section className="card ledger-card">
+            <div className="ledger-head">
+              <h2>Public Ledger</h2>
+              <span className="dim mono">{invoiceCount} issued {invoiceCount === 1 ? 'invoice' : 'invoices'}</span>
             </div>
 
-            {showJoinPanel && (
-              <div className="mt-5 rounded-[20px] border border-[#E1E3F0] bg-white p-4">
-                <label className="mb-2 block text-sm font-medium text-[#33405F]">Contract address (64 hex chars)</label>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <input type="text" placeholder="ca117f7f…476559b7" value={joinInput}
-                    onChange={(e) => setJoinInput(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && joinContract()}
-                    className="h-[48px] min-w-0 flex-1 rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] px-4 font-mono text-sm text-[#29375F] outline-none transition placeholder:text-[#A1A7BA] focus:border-[#FF6A00] focus:ring-4 focus:ring-[#FF6A00]/10" />
-                  <div className="flex gap-3">
-                    <button type="button" onClick={joinContract} disabled={!joinInput.trim()}
-                      className="inline-flex h-[48px] items-center justify-center rounded-full bg-[#29375F] px-6 text-sm font-semibold text-white transition hover:bg-[#1F2C50] disabled:opacity-40">
-                      Join Contract
-                    </button>
-                    {isConnected ? (
-                      <button type="button" onClick={deployContract} disabled={deploying}
-                        className="inline-flex h-[48px] items-center justify-center gap-2 rounded-full border border-[#FF6A00] bg-[#FFF0E7] px-6 text-sm font-semibold text-[#B84A00] transition hover:bg-[#FFE4D1] disabled:opacity-40">
-                        {deploying ? <Loader2 size={15} className="animate-spin" /> : null}
-                        {deploying ? 'Deploying…' : 'Deploy New'}
-                      </button>
-                    ) : (
-                      <button type="button" onClick={connect} disabled={walletState !== 'ready'}
-                        className="inline-flex h-[48px] items-center justify-center rounded-full border border-[#D9DCF0] px-6 text-sm font-semibold text-[#394563] transition hover:bg-[#EEF0FA] disabled:opacity-40">
-                        Connect to Deploy
-                      </button>
-                    )}
-                  </div>
+            {ledgerError ? (
+              <div className="lb-empty"><p className="dim">Ledger error: {ledgerError}</p></div>
+            ) : invoices.length === 0 ? (
+              <div className="lb-empty">
+                {loading ? <p className="dim"><span className="spinner" /> Reading ledger…</p> : <p className="dim">No invoices on this contract yet. The ledger is empty.</p>}
+              </div>
+            ) : (
+              <div className="lb-table">
+                <div className="lb-row lb-head">
+                  <span className="lb-id">ID</span>
+                  <span className="lb-status">Status</span>
+                  <span className="lb-amount">Amount</span>
+                  <span className="lb-memo">Memo</span>
                 </div>
+                {invoices.map((inv) => {
+                  const meta = STATUS_META[inv.status];
+                  const local = knownInvoices[String(inv.id)];
+                  return (
+                    <button key={inv.id} className={`lb-row lb-row-btn ${selectedId === inv.id ? 'lb-active' : ''}`}
+                      onClick={() => setSelectedId(selectedId === inv.id ? null : inv.id)}>
+                      <span className="lb-id mono">#{inv.id}</span>
+                      <span className="lb-status"><span className={`status-badge ${meta.cls}`}>{meta.label}</span></span>
+                      <span className="lb-amount mono">{local ? local.amount : '••••'}</span>
+                      <span className="lb-memo dim">{local ? decodeMemo(local.memo) : '— private —'}</span>
+                    </button>
+                  );
+                })}
               </div>
             )}
+          </section>
+        </div>
 
-            {/* Tabs */}
-            <div className="mt-5 flex w-full items-center rounded-full bg-[#E9EBF7] p-1">
-              {tabButton('invoice', 'New Invoice', FileText)}
-              {tabButton('ledger', 'Public Ledger', List)}
-              {tabButton('detail', 'Invoice Detail', Receipt)}
+        <div className="col">
+          <section className="card detail-card">
+            <div className="ledger-head">
+              <h2>Invoice Detail</h2>
+              {selected && <span className="dim mono">known by your wallet: {selectedLocal ? 'yes' : 'no'}</span>}
             </div>
 
-            {/* ── New Invoice ─────────────────────────────────────────── */}
-            {view === 'invoice' && (
-              <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6 md:p-7">
-                <div className="mb-7 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF0E7] text-[#FF6A00]">
-                    <LockKeyhole size={19} strokeWidth={1.8} />
+            {!selected ? (
+              <div className="lb-empty"><p className="dim">Select an invoice from the ledger to inspect it. Amounts you created stay in your wallet — everyone else sees redacted entries.</p></div>
+            ) : (
+              <div className="detail-body">
+                <div className="detail-grid">
+                  <div className="detail-kv"><span className="dim">Invoice</span><span className="mono">#{selected.id}</span></div>
+                  <div className="detail-kv"><span className="dim">Status</span><span className={`status-badge ${STATUS_META[selected.status].cls}`}>{STATUS_META[selected.status].label}</span></div>
+                  <div className="detail-kv"><span className="dim">Amount</span><span className="mono">{selectedLocal ? selectedLocal.amount : '•••••• (private)'}</span></div>
+                  <div className="detail-kv"><span className="dim">Memo</span><span>{selectedLocal ? decodeMemo(selectedLocal.memo) : 'Private memo — visible only to the parties. Share it off-chain.'}</span></div>
+                </div>
+
+                <div className="flow-list">
+                  <div className={`flow-step ${selected.status >= INVOICE_STATUS.OPEN ? 'on' : ''}`}>
+                    <span className="flow-node">→</span><span>Created</span>
+                    <span className={`status-dot st-open`} />
                   </div>
-                  <div>
-                    <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#1F2C50]">Create private invoice</h2>
-                    <p className="mt-1.5 max-w-2xl text-sm leading-6 text-[#69728C]">
-                      Amount and memo are private — they are bound into the proof and never written to the ledger.
-                    </p>
+                  <div className={`flow-step ${selected.status >= INVOICE_STATUS.ACCEPTED ? 'on' : ''}`}>
+                    <span className="flow-node">→</span><span>Accepted by payee</span>
+                    <span className={`status-dot st-accepted`} />
+                  </div>
+                  <div className={`flow-step ${selected.status >= INVOICE_STATUS.SETTLED ? 'on' : ''}`}>
+                    <span className="flow-node">→</span><span>Settled</span>
+                    <span className={`status-dot st-settled`} />
+                  </div>
+                  <div className={`flow-step ${selected.status >= INVOICE_STATUS.CANCELLED ? 'on' : ''}`}>
+                    <span className="flow-node">→</span><span>Cancelled</span>
+                    <span className={`status-dot st-cancelled`} />
                   </div>
                 </div>
 
-                <div className="grid gap-5 md:grid-cols-2">
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-[#33405F]">Amount</label>
-                    <div className="flex h-[56px] overflow-hidden rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] transition focus-within:border-[#FF6A00] focus-within:ring-4 focus-within:ring-[#FF6A00]/10">
-                      <input type="text" inputMode="numeric" placeholder="e.g. 1000" value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#29375F] outline-none placeholder:text-[#A1A7BA]" />
-                      <button type="button" className="flex items-center gap-2 border-l border-[#D8DCEF] px-4 text-sm font-semibold text-[#394563]">
-                        USD <span className="text-xs text-[#8A91A9]">▾</span>
+                <div className="actions">
+                  {selected.status === INVOICE_STATUS.OPEN && (
+                    <>
+                      <button className="btn-primary btn-sm" onClick={() => updateStatus(selected.id, 'accept')}
+                        disabled={!isConnected || actionBusy !== null}>
+                        {actionBusy === selected.id ? <span className="spinner" /> : 'Accept'}
                       </button>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-sm font-medium text-[#33405F]">
-                      Memo <span className="font-normal text-[#9298AB]">(optional)</span>
-                    </label>
-                    <input type="text" placeholder="Add a note…" maxLength={32} value={memo}
-                      onChange={(e) => setMemo(e.target.value)}
-                      className="h-[56px] w-full rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] px-4 text-sm text-[#29375F] outline-none transition placeholder:text-[#A1A7BA] focus:border-[#FF6A00] focus:ring-4 focus:ring-[#FF6A00]/10" />
-                  </div>
-                </div>
-
-                <div className="mt-6 flex items-center gap-3 rounded-[14px] bg-[#F0F1FA] px-4 py-3.5">
-                  <ShieldCheck size={18} strokeWidth={1.8} className="shrink-0 text-[#64708F]" />
-                  <p className="text-xs leading-5 text-[#69728C]">This information is encrypted and never leaves your device.</p>
-                </div>
-
-                <div className="mt-6 flex justify-end">
-                  {isConnected ? (
-                    <button type="button" onClick={createInvoice}
-                      disabled={creating || !amount.trim() || !memo.trim()}
-                      className="inline-flex h-[48px] items-center gap-3 rounded-full bg-[#FF6A00] px-7 text-sm font-semibold text-[#111827] shadow-[0_8px_20px_rgba(255,106,0,0.20)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,106,0,0.25)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0">
-                      {creating ? <Loader2 size={16} className="animate-spin" /> : null}
-                      {creating ? createStatus : 'Create Invoice'}
-                      {!creating && <span className="text-base">→</span>}
-                    </button>
-                  ) : (
-                    <button type="button" onClick={connect}
-                      disabled={walletState !== 'ready'}
-                      className="inline-flex h-[48px] items-center gap-3 rounded-full bg-[#FF6A00] px-7 text-sm font-semibold text-[#111827] shadow-[0_8px_20px_rgba(255,106,0,0.20)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(255,106,0,0.25)] active:translate-y-0">
-                      {walletState === 'no-wallet' ? 'Install Lace to Create' : 'Connect Wallet to Create'}
-                      <span className="text-base">→</span>
+                      <button className="btn-danger btn-sm" onClick={() => updateStatus(selected.id, 'cancel')}
+                        disabled={!isConnected || actionBusy !== null}>
+                        {actionBusy === selected.id ? <span className="spinner" /> : 'Cancel'}
+                      </button>
+                    </>
+                  )}
+                  {selected.status === INVOICE_STATUS.ACCEPTED && (
+                    <button className="btn-primary btn-sm" onClick={() => updateStatus(selected.id, 'settle')}
+                      disabled={!isConnected || actionBusy !== null}>
+                      {actionBusy === selected.id ? <span className="spinner" /> : 'Settle'}
                     </button>
                   )}
+                  <p className="dim mono">{selected.id}</p>
                 </div>
               </div>
             )}
-
-            {/* ── Public Ledger ────────────────────────────────────────── */}
-            {view === 'ledger' && (
-              <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6">
-                <div className="mb-5 flex items-center justify-between">
-                  <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#1F2C50]">Public Ledger</h2>
-                  <span className="font-mono text-sm text-[#9298AB]">
-                    {invoiceCount} issued {invoiceCount === 1 ? 'invoice' : 'invoices'}
-                  </span>
-                </div>
-
-                {ledgerError ? (
-                  <div className="rounded-[14px] bg-[#FDECEC] px-4 py-6 text-center text-sm text-[#8C2F2F]">
-                    Ledger error: {ledgerError}
-                  </div>
-                ) : invoices.length === 0 ? (
-                  <div className="rounded-[14px] bg-[#F0F1FA] px-4 py-10 text-center text-sm text-[#69728C]">
-                    {loading ? (
-                      <span className="inline-flex items-center gap-2"><Loader2 size={15} className="animate-spin" /> Reading ledger…</span>
-                    ) : 'No invoices on this contract yet. The ledger is empty.'}
-                  </div>
-                ) : (
-                  <div className="overflow-hidden rounded-[16px] border border-[#E1E3F0]">
-                    <div className="flex items-center gap-3 border-b border-[#E1E3F0] bg-[#F0F1FA] px-4 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#7A829D]">
-                      <span className="w-12">ID</span>
-                      <span className="w-24">Status</span>
-                      <span className="w-24">Amount</span>
-                      <span className="min-w-0 flex-1">Memo</span>
-                    </div>
-                    {invoices.map((inv) => {
-                      const meta = STATUS_META[inv.status] ?? STATUS_META[INVOICE_STATUS.OPEN];
-                      const local = knownInvoices[String(inv.id)];
-                      return (
-                        <button key={inv.id} type="button"
-                          onClick={() => {
-                            if (selectedId === inv.id) { setSelectedId(null); setView('ledger'); }
-                            else { setSelectedId(inv.id); setView('detail'); }
-                          }}
-                          className={`flex w-full items-center gap-3 border-b border-[#E1E3F0] px-4 py-3.5 text-left transition last:border-b-0 hover:bg-[#F7F8FD] ${selectedId === inv.id ? 'bg-[#F0F1FA]' : 'bg-white'}`}>
-                          <span className="w-12 font-mono text-sm text-[#29375F]">#{inv.id}</span>
-                          <span className="w-24"><span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${meta.cls}`}><span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />{meta.label}</span></span>
-                          <span className="w-24 font-mono text-sm text-[#29375F]">{local ? local.amount : '••••'}</span>
-                          <span className="min-w-0 flex-1 truncate text-sm text-[#69728C]">{local ? decodeMemo(local.memo) : '— private —'}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* ── Invoice Detail ───────────────────────────────────────── */}
-            {view === 'detail' && (
-              <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6">
-                <div className="mb-5 flex items-center justify-between">
-                  <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#1F2C50]">Invoice Detail</h2>
-                  {selected && <span className="font-mono text-sm text-[#9298AB]">known by your wallet: {selectedLocal ? 'yes' : 'no'}</span>}
-                </div>
-
-                {!selected ? (
-                  <div className="rounded-[14px] bg-[#F0F1FA] px-4 py-10 text-center text-sm text-[#69728C]">
-                    Select an invoice from the ledger to inspect it. Amounts you created stay in your wallet — everyone else sees redacted entries.
-                  </div>
-                ) : (
-                  <div>
-                    <div className="grid gap-4 sm:grid-cols-2">
-                      <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                        <span className="text-xs font-medium text-[#9298AB]">Invoice</span>
-                        <span className="mt-1 block font-mono text-sm font-medium text-[#29375F]">#{selected.id}</span>
-                      </div>
-                      <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                        <span className="text-xs font-medium text-[#9298AB]">Status</span>
-                        <span className="mt-1.5 block">
-                          <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${STATUS_META[selected.status].cls}`}>
-                            <span className={`h-1.5 w-1.5 rounded-full ${STATUS_META[selected.status].dot}`} />{STATUS_META[selected.status].label}
-                          </span>
-                        </span>
-                      </div>
-                      <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                        <span className="text-xs font-medium text-[#9298AB]">Amount</span>
-                        <span className="mt-1 block font-mono text-sm font-medium text-[#29375F]">{selectedLocal ? selectedLocal.amount : '•••••• (private)'}</span>
-                      </div>
-                      <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                        <span className="text-xs font-medium text-[#9298AB]">Memo</span>
-                        <span className="mt-1 block text-sm text-[#29375F]">{selectedLocal ? decodeMemo(selectedLocal.memo) : 'Private memo — visible only to the parties. Share it off-chain.'}</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flow-list">
-                      <div className={`flex items-center gap-3 rounded-[14px] border px-4 py-3 ${selected.status >= INVOICE_STATUS.OPEN ? 'border-[#FFE4D1] bg-[#FFF4EC]' : 'border-[#E1E3F0] bg-white opacity-60'}`}>
-                        <span className={`h-2 w-2 rounded-full ${selected.status >= INVOICE_STATUS.OPEN ? 'bg-[#F59E0B]' : 'bg-[#C7CBD9]'}`} />
-                        <span className="text-sm font-medium text-[#33405F]">Created</span>
-                      </div>
-                      <div className={`mt-2 flex items-center gap-3 rounded-[14px] border px-4 py-3 ${selected.status >= INVOICE_STATUS.ACCEPTED ? 'border-[#DBEAFE] bg-[#EFF6FF]' : 'border-[#E1E3F0] bg-white opacity-60'}`}>
-                        <span className={`h-2 w-2 rounded-full ${selected.status >= INVOICE_STATUS.ACCEPTED ? 'bg-[#3B82F6]' : 'bg-[#C7CBD9]'}`} />
-                        <span className="text-sm font-medium text-[#33405F]">Accepted by payee</span>
-                      </div>
-                      <div className={`mt-2 flex items-center gap-3 rounded-[14px] border px-4 py-3 ${selected.status >= INVOICE_STATUS.SETTLED ? 'border-[#C6F0DD] bg-[#F0FBF5]' : 'border-[#E1E3F0] bg-white opacity-60'}`}>
-                        <span className={`h-2 w-2 rounded-full ${selected.status >= INVOICE_STATUS.SETTLED ? 'bg-[#35B86B]' : 'bg-[#C7CBD9]'}`} />
-                        <span className="text-sm font-medium text-[#33405F]">Settled</span>
-                      </div>
-                      {selected.status === INVOICE_STATUS.CANCELLED && (
-                        <div className="mt-2 flex items-center gap-3 rounded-[14px] border border-[#EEF0F5] bg-[#F7F8FC] px-4 py-3">
-                          <span className="h-2 w-2 rounded-full bg-[#9CA3AF]" />
-                          <span className="text-sm font-medium text-[#33405F]">Cancelled</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="mt-6 flex flex-wrap items-center gap-3">
-                      {selected.status === INVOICE_STATUS.OPEN && (
-                        <>
-                          <button type="button" onClick={() => updateStatus(selected.id, 'accept')} disabled={!isConnected || actionBusy !== null}
-                            className="inline-flex h-[42px] items-center gap-2 rounded-full bg-[#29375F] px-6 text-sm font-semibold text-white transition hover:bg-[#1F2C50] disabled:opacity-40">
-                            {actionBusy === selected.id ? <Loader2 size={15} className="animate-spin" /> : null}Accept
-                          </button>
-                          <button type="button" onClick={() => updateStatus(selected.id, 'cancel')} disabled={!isConnected || actionBusy !== null}
-                            className="inline-flex h-[42px] items-center gap-2 rounded-full bg-[#FDECEC] px-6 text-sm font-semibold text-[#8C2F2F] transition hover:bg-[#F9DADA] disabled:opacity-40">
-                            {actionBusy === selected.id ? <Loader2 size={15} className="animate-spin" /> : null}Cancel
-                          </button>
-                        </>
-                      )}
-                      {selected.status === INVOICE_STATUS.ACCEPTED && (
-                        <button type="button" onClick={() => updateStatus(selected.id, 'settle')} disabled={!isConnected || actionBusy !== null}
-                          className="inline-flex h-[42px] items-center gap-2 rounded-full bg-[#35B86B] px-6 text-sm font-semibold text-white transition hover:bg-[#2EA35C] disabled:opacity-40">
-                          {actionBusy === selected.id ? <Loader2 size={15} className="animate-spin" /> : null}Settle
-                        </button>
-                      )}
-                      {selected.status === INVOICE_STATUS.SETTLED && (
-                        <p className="text-sm text-[#69728C]">Settled. Funds change hands off-chain per the memo.</p>
-                      )}
-                      {selected.status === INVOICE_STATUS.CANCELLED && (
-                        <p className="text-sm text-[#69728C]">This invoice was cancelled by its creator on the ledger.</p>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
 
-      <footer className="mx-auto flex max-w-6xl items-center justify-between px-4 pb-8 text-xs text-[#9298AB] sm:px-6">
-        <span>Built on <a href="https://midnight.network" target="_blank" rel="noopener noreferrer" className="text-[#596581] underline-offset-2 hover:underline">Midnight</a> · Preview</span>
-        <span className="font-mono">{NETWORK_ID}</span>
+      <footer className="footer">
+        <span>Built on <a href="https://midnight.network" target="_blank" rel="noopener noreferrer">Midnight</a> · Preview</span>
+        <span className="dim mono">{NETWORK_ID}</span>
       </footer>
     </div>
   );
