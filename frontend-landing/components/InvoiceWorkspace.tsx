@@ -278,7 +278,7 @@ export default function InvoiceWorkspace({
                 </label>
                 <input
                   type="text"
-                  placeholder="Add a note..."
+                  placeholder="Add a note.."
                   maxLength={32}
                   value={memo}
                   onChange={(e) => onMemo(e.target.value)}
