@@ -162,7 +162,6 @@ export default function DeskPage() {
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [actionBusy, setActionBusy] = useState<number | null>(null);
-  const [view, setView] = useState<'ledger' | 'detail' | 'invoice'>('invoice');
 
   const managerRef = useRef<BrowserNightDeskManager | null>(null);
 
@@ -385,7 +384,39 @@ export default function DeskPage() {
       )}
 
       <main className="layout single">
-        <InvoiceWorkspace />
+        <InvoiceWorkspace
+          contractAddress={contractAddress}
+          copied={copied}
+          onCopy={handleCopy}
+          showJoinPanel={showJoinPanel}
+          onToggleJoin={() => setShowJoinPanel((v) => !v)}
+          joinInput={joinInput}
+          onJoinInput={setJoinInput}
+          onJoin={joinContract}
+          onDeploy={deployContract}
+          deploying={deploying}
+          isConnected={isConnected}
+          walletState={walletState}
+          onConnect={connect}
+          amount={amount}
+          onAmount={setAmount}
+          memo={memo}
+          onMemo={setMemo}
+          onCreate={createInvoice}
+          creating={creating}
+          createStatus={createStatus}
+          invoices={invoices}
+          invoiceCount={invoiceCount}
+          loading={loading}
+          ledgerError={ledgerError}
+          onSelect={(id) => setSelectedId(id)}
+          selected={selected}
+          selectedLocal={selectedLocal}
+          onUpdateStatus={updateStatus}
+          actionBusy={actionBusy}
+          statusMeta={STATUS_META}
+          decodeMemo={decodeMemo}
+        />
       </main>
 
       <footer className="footer">
