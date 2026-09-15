@@ -1,3 +1,77 @@
+/* ── Neutralize landing-page globals leaking into /desk ────────────────── */
+
+.hero-shell,
+.hero-card,
+.hero-card::before,
+.site-header,
+.hero-content,
+.copy-column,
+.visual-column,
+.robot-image,
+.orbit-ring,
+.orbit-ring-one,
+.orbit-ring-two,
+.coin,
+.coin-one,
+.coin-two,
+.block,
+.block-one,
+.block-two,
+.feature-bar,
+.feature-item,
+.workflow-section,
+.workflow-heading,
+.workflow-panel,
+.workflow-copy,
+.workflow-image-wrap,
+.workflow-image,
+.privacy-section,
+.privacy-heading,
+.privacy-grid,
+.privacy-card,
+.privacy-card-image,
+.infographic-section,
+.infographic-map,
+.infographic-connectors,
+.infographic-card-grid,
+.infographic-card,
+.infographic-core,
+.process-timeline,
+.process-step,
+.process-pill,
+.comparison-section,
+.faq-cta,
+.faq-section,
+.corner-shape {
+  all: revert;
+}
+
+/* Cancel all landing decorative animations */
+@keyframes float { from,to { transform: none; } }
+@keyframes bob { from,to { transform: none; } }
+@keyframes slide-in { from { opacity:1; transform:none; } to { opacity:1; transform:none; } }
+@keyframes section-rise { from { opacity:1; transform:none; } to { opacity:1; transform:none; } }
+@keyframes cta-pulse { from,to { transform:none; box-shadow:none; } }
+
+/* Reset landing h1 styles that leak via globals.css */
+h1 {
+  font-size: revert;
+  line-height: revert;
+  letter-spacing: revert;
+  font-weight: revert;
+  color: revert;
+  margin: revert;
+}
+
+/* Reset button/focus-visible outline from globals */
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #f47c20;
+  outline-offset: 4px;
+}
+
+/* ── Desk design tokens ──────────────────────────────────────────────── */
+
 :root {
   --bg: #9faac4;
   --bg-grad: linear-gradient(135deg, #f4f1fc 0%, #e7eafa 48%, #cbd2e7 100%);
