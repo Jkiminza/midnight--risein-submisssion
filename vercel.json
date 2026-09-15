@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd contract && npm run build && cd ../api && npm run build && cd ../ui && npm run build",
-  "outputDirectory": "ui/dist",
+  "buildCommand": "cd contract && npm run build && cd ../api && npm run build && cd ../frontend-landing && npm run build",
+  "outputDirectory": "frontend-landing/.next",
   "installCommand": "npm install",
-  "framework": null
+  "framework": "nextjs"
 }

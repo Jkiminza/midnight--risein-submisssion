@@ -309,15 +309,15 @@ async function main() {
 }
 
 function saveDeployOutputs(contractAddress: string): void {
-  for (const file of ['../../ui/.env.preview', '../../ui/.env']) {
+  for (const file of ['../../frontend-landing/.env.preview', '../../frontend-landing/.env.local']) {
     const abs = fileURLToPath(new URL(file, import.meta.url));
     const lines = existsSync(abs) ? readFileSync(abs, 'utf8').split('\n') : [];
-    const out = lines.filter((l) => !/^VITE_DEFAULT_CONTRACT=/.test(l));
-    out.push(`VITE_DEFAULT_CONTRACT=${contractAddress}`);
+    const out = lines.filter((l) => !/^NEXT_PUBLIC_DEFAULT_CONTRACT=/.test(l));
+    out.push(`NEXT_PUBLIC_DEFAULT_CONTRACT=${contractAddress}`);
     writeFileSync(abs, out.join('\n') + '\n');
   }
   saveEnv({ DEPLOYED_CONTRACT_ADDRESS: contractAddress });
-  console.log(`  Written ${contractAddress} to ui/.env and ui/.env.preview (VITE_DEFAULT_CONTRACT).`);
+  console.log(`  Written ${contractAddress} to frontend-landing/.env.preview and frontend-landing/.env.local (NEXT_PUBLIC_DEFAULT_CONTRACT).`);
 }
 
 main().catch((err) => {
