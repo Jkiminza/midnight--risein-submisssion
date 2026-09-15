@@ -5,7 +5,7 @@
   "workspaces": false,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cd .. && cd contract && npm run build && cd ../api && npm run build && cd ../frontend-landing && next build",
     "start": "next start"
   },
   "dependencies": {
