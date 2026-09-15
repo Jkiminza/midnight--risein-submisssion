@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * useInvoices — reads on-chain invoice state from the indexer.
  *
@@ -12,7 +14,7 @@ import { NightDesk, type NightDeskPrivateState as _PS } from 'night-desk-contrac
 import { statusLabel } from '../../../../api/dist/utils/index.js';
 import { type InvoiceStatus } from '../../../../api/dist/common-types.js';
 
-const INDEXER_URL = import.meta.env.VITE_INDEXER_URL ?? 'https://indexer.preview.midnight.network/api/v4/graphql';
+const INDEXER_URL = process.env.NEXT_PUBLIC_INDEXER_URL ?? 'https://indexer.preview.midnight.network/api/v4/graphql';
 
 const CONTRACT_STATE_QUERY = `
   query ContractState($address: HexEncoded!) {

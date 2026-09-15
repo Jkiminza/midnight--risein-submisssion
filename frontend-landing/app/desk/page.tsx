@@ -1,6 +1,16 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+/**
+ * Night Desk — React Web Interface
+ *
+ * A private invoicing ledger on the Midnight Network.
+ * Amount and memo never reach the chain — the ledger only stores
+ * the invoice id, its status and the creator's identity hash.
+ * Statuses are read from the Preview indexer (no wallet needed).
+ * Creating/accepting/settling/cancelling requires Lace.
+ */
+
+import { useState, useEffect, useCallback, useRef, type ReactNode } from 'react';
 import type { InitialAPI, ConnectedAPI } from '@midnight-ntwrk/dapp-connector-api';
 import { useInvoices, type InvoiceView } from './hooks/useInvoices';
 import { BrowserNightDeskManager } from './contexts/BrowserNightDeskManager';
@@ -24,7 +34,7 @@ export function findWallet(): InitialAPI | undefined {
   const midnight = (window as any).midnight;
   if (!midnight) return undefined;
   return Object.values(midnight).find(
-    (w): w is InitialAPI => !!w && typeof w === 'object' && 'apiVersion' in w,
+    (w): w is InitialAPI => !!w && typeof w === 'object' && typeof (w as InitialAPI).connect === 'function',
   );
 }
 
@@ -42,6 +52,39 @@ export function encodeMemo(memo: string): Uint8Array {
   out.set(new TextEncoder().encode(memo).slice(0, 32));
   return out;
 }
+
+// ── Inline icons (lucide-style strokes) ──────────────────────────────────
+
+function Icon({ children, size = 16 }: { children: ReactNode; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {children}
+    </svg>
+  );
+}
+
+const WalletIcon = ({ size = 18 }: { size?: number }) => (
+  <Icon size={size}><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" /></Icon>
+);
+const CopyIcon = ({ size = 14 }: { size?: number }) => (
+  <Icon size={size}><rect x="8" y="8" width="14" height="14" rx="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></Icon>
+);
+const FileTextIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></Icon>
+);
+const ListIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></Icon>
+);
+const ReceiptIcon = ({ size = 16 }: { size?: number }) => (
+  <Icon size={size}><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></Icon>
+);
+const LockIcon = ({ size = 19 }: { size?: number }) => (
+  <Icon size={size}><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>
+);
+const ShieldIcon = ({ size = 18 }: { size?: number }) => (
+  <Icon size={size}><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></Icon>
+);
 
 async function copyToClipboard(text: string): Promise<boolean> {
   try { await navigator.clipboard.writeText(text); return true; }
@@ -118,6 +161,7 @@ export default function DeskPage() {
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [actionBusy, setActionBusy] = useState<number | null>(null);
+  const [view, setView] = useState<'ledger' | 'detail' | 'invoice'>('invoice');
 
   const managerRef = useRef<BrowserNightDeskManager | null>(null);
 
@@ -165,6 +209,25 @@ export default function DeskPage() {
     }
   }, [walletAPI]);
 
+  const disconnect = useCallback(() => {
+    setWallet(null);
+    setAddress(null);
+    setWalletState('ready');
+  }, []);
+
+  // ── Deployment helper ───────────────────────────────────────────────
+
+  const resolveDeployment = useCallback(async (manager: BrowserNightDeskManager) => {
+    const deployment$ = manager.resolve(contractAddress as any);
+    const result = await new Promise<any>((resolve, reject) => {
+      const sub = deployment$.subscribe((d) => {
+        if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
+        if (d.status === 'failed') { Promise.resolve().then(() => sub.unsubscribe()); reject(d.error); }
+      });
+    });
+    return result;
+  }, [contractAddress]);
+
   // ── Deploy / join ────────────────────────────────────────────────────
 
   const deployContract = useCallback(async () => {
@@ -173,13 +236,7 @@ export default function DeskPage() {
     setError(null);
     try {
       const manager = getManager();
-      const deployment$ = manager.resolve();
-      const result = await new Promise<any>((resolve, reject) => {
-        const sub = deployment$.subscribe((d) => {
-          if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
-          if (d.status === 'failed') { Promise.resolve().then(() => sub.unsubscribe()); reject(d.error); }
-        });
-      });
+      const result = await resolveDeployment(manager);
       setContractAddress(result.api.deployedContractAddress);
       setShowJoinPanel(false);
       await copyToClipboard(result.api.deployedContractAddress);
@@ -188,7 +245,7 @@ export default function DeskPage() {
     } finally {
       setDeploying(false);
     }
-  }, [wallet, getManager]);
+  }, [wallet, getManager, resolveDeployment]);
 
   const joinContract = useCallback(async () => {
     if (!joinInput.trim()) return;
@@ -196,13 +253,7 @@ export default function DeskPage() {
     setError(null);
     try {
       const manager = getManager();
-      const deployment$ = manager.resolve(joinInput as any);
-      const result = await new Promise<any>((resolve, reject) => {
-        const sub = deployment$.subscribe((d) => {
-          if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
-          if (d.status === 'failed') { Promise.resolve().then(() => sub.unsubscribe()); reject(d.error); }
-        });
-      });
+      const result = await resolveDeployment(manager);
       setContractAddress(result.api.deployedContractAddress);
       setShowJoinPanel(false);
     } catch (e: any) {
@@ -210,7 +261,7 @@ export default function DeskPage() {
     } finally {
       setDeploying(false);
     }
-  }, [joinInput, getManager]);
+  }, [joinInput, getManager, resolveDeployment]);
 
   const handleCopy = useCallback(async () => {
     if (!contractAddress) return;
@@ -226,31 +277,29 @@ export default function DeskPage() {
   const createInvoice = useCallback(async () => {
     if (!wallet) return;
     setCreating(true);
-    setCreateStatus('Creating proof…');
+    setCreateStatus('Generating proof…');
     setError(null);
     try {
       const manager = getManager();
-      const deployment$ = manager.resolve(contractAddress as any);
-      const result = await new Promise<any>((resolve, reject) => {
-        const sub = deployment$.subscribe((d) => {
-          if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
-          if (d.status === 'failed') { Promise.resolve().then(() => sub.unsubscribe()); reject(d.error); }
-        });
+      const result = await resolveDeployment(manager);
+      setCreateStatus('Generating proof & submitting…');
+      const amt = amount.trim();
+      const entryId = await result.api.createInvoice(amt, encodeMemo(memo.trim()));
+      saveKnownInvoice(String(entryId), {
+        amount: amount.trim(),
+        memo: memo.trim(),
+        createdAt: new Date().toISOString(),
       });
-      const api = result.api;
-      setCreateStatus('Submitting…');
-      await api.createInvoice(amount, memo);
-      saveKnownInvoice(api.lastInvoiceId, { amount, memo, createdAt: new Date().toISOString() });
-      setAmount('');
-      setMemo('');
-      refresh();
+      setCreateStatus(null);
+      setAmount(''); setMemo('');
+      setTimeout(() => refresh(), 3000);
     } catch (e: any) {
       setError(friendlyError(e));
     } finally {
       setCreating(false);
       setCreateStatus(null);
     }
-  }, [wallet, contractAddress, amount, memo, getManager, refresh]);
+  }, [wallet, amount, memo, getManager, resolveDeployment, refresh]);
 
   const updateStatus = useCallback(async (id: number, action: 'accept' | 'settle' | 'cancel') => {
     if (!wallet) return;
@@ -258,28 +307,23 @@ export default function DeskPage() {
     setError(null);
     try {
       const manager = getManager();
-      const deployment$ = manager.resolve(contractAddress as any);
-      const result = await new Promise<any>((resolve, reject) => {
-        const sub = deployment$.subscribe((d) => {
-          if (d.status === 'deployed') { Promise.resolve().then(() => sub.unsubscribe()); resolve(d); }
-          if (d.status === 'failed') { Promise.resolve().then(() => sub.unsubscribe()); reject(d.error); }
-        });
-      });
-      const api = result.api;
-      if (action === 'accept') await api.acceptInvoice(id);
-      else if (action === 'settle') await api.settleInvoice(id);
-      else if (action === 'cancel') await api.cancelInvoice(id);
-      refresh();
+      const result = await resolveDeployment(manager);
+      if (action === 'accept') await result.api.acceptInvoice(id);
+      else if (action === 'settle') await result.api.settleInvoice(id);
+      else await result.api.cancelInvoice(id);
+      setTimeout(() => refresh(), 3000);
     } catch (e: any) {
       setError(friendlyError(e));
     } finally {
       setActionBusy(null);
     }
-  }, [wallet, contractAddress, getManager, refresh]);
+  }, [wallet, getManager, resolveDeployment, refresh]);
+
+  // ── Render ───────────────────────────────────────────────────────────
 
   const isConnected = walletState === 'connected';
-  const selected = invoices.find(i => i.id === selectedId);
-  const selectedLocal = selected ? knownInvoices[selected.id] : null;
+  const selected: InvoiceView | undefined = invoices.find((i) => i.id === selectedId);
+  const selectedLocal = selected ? knownInvoices[String(selected.id)] : undefined;
 
   return (
     <div className="app">
@@ -295,7 +339,7 @@ export default function DeskPage() {
         </div>
         <div className="header-right">
           {isConnected && address ? (
-            <div className="chip"><span className="dot" />{truncAddr(address)}</div>
+            <div className="chip"><span className="dot" />{truncAddr(address)}<button className="chip-disconnect" onClick={disconnect} title="Disconnect wallet" aria-label="Disconnect wallet">⏻</button></div>
           ) : walletState === 'detecting' || walletState === 'connecting' ? (
             <div className="chip muted"><span className="spinner" />{walletState === 'detecting' ? 'Detecting…' : 'Connecting…'}</div>
           ) : walletState === 'no-wallet' ? (
@@ -346,7 +390,7 @@ export default function DeskPage() {
               <div className="contract-label">Contract</div>
               <button className="contract-addr" onClick={handleCopy} title={`Click to copy: ${contractAddress || 'none yet'}`}>
                 <span className="mono">{contractAddress ? truncAddr(contractAddress) : 'not deployed'}</span>
-                <span className="copy-icon">{copied ? '✓' : '⎘'}</span>
+                <span className="copy-icon">{copied ? '✓' : <CopyIcon />}</span>
               </button>
               <button className="btn-text" onClick={() => setShowJoinPanel(!showJoinPanel)}>
                 {showJoinPanel ? 'Cancel' : 'Switch'}
@@ -419,7 +463,7 @@ export default function DeskPage() {
                 </div>
                 {invoices.map((inv) => {
                   const meta = STATUS_META[inv.status];
-                  const local = knownInvoices[inv.id];
+                  const local = knownInvoices[String(inv.id)];
                   return (
                     <button key={inv.id} className={`lb-row lb-row-btn ${selectedId === inv.id ? 'lb-active' : ''}`}
                       onClick={() => setSelectedId(selectedId === inv.id ? null : inv.id)}>

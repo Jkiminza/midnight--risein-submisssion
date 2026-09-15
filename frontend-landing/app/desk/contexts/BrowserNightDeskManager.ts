@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * Browser-side provider initialization for the Night Desk DApp.
  * Connects to the Lace wallet via DApp Connector API and bridges
@@ -131,7 +133,7 @@ const connectWithRetry = async (logger: Logger, networkId: string, attempts = 3)
 };
 
 const initializeProviders = async (logger: Logger): Promise<NightDeskProviders> => {
-  const networkId = import.meta.env.VITE_NETWORK_ID as NetworkId;
+  const networkId = process.env.NEXT_PUBLIC_NETWORK_ID as NetworkId;
   setNetworkId(networkId);
 
   let connectedAPI = await connectWithRetry(logger, networkId);
