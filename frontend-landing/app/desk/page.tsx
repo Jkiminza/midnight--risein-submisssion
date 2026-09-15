@@ -118,6 +118,8 @@ export default function DeskPage() {
   const [address, setAddress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [createdInvoiceId, setCreatedInvoiceId] = useState<string | null>(null);
+  const [idCopied, setIdCopied] = useState(false);
 
   const [contractAddress, setContractAddress] = useState(DEFAULT_CONTRACT);
   const [joinInput, setJoinInput] = useState('');
@@ -250,6 +252,7 @@ export default function DeskPage() {
     setCreateStatus('Generating proof…');
     setError(null);
     setSuccess(null);
+    setCreatedInvoiceId(null);
     try {
       const manager = getManager();
       const result = await resolveDeployment(manager);
@@ -263,8 +266,9 @@ export default function DeskPage() {
       });
       setCreateStatus(null);
       setAmount(''); setMemo('');
+      setCreatedInvoiceId(String(entryId));
       setSuccess(`Invoice #${entryId} created successfully! Amount & memo bound to ZK proof.`);
-      setTimeout(() => setSuccess(null), 6000);
+      setTimeout(() => setSuccess(null), 8000);
       setTimeout(() => refresh(), 3000);
     } catch (e: any) {
       setError(friendlyError(e));
@@ -354,7 +358,32 @@ export default function DeskPage() {
       <div className="hero-divider"></div>
 
       {success && (
-        <div className="success-bar"><span>{success}</span><button onClick={() => setSuccess(null)}>✕</button></div>
+        <div className="success-bar">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <span>{success}</span>
+            {createdInvoiceId && (
+              <button
+                style={{
+                  background: '#2ea043',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '4px 10px',
+                  borderRadius: '6px',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+                onClick={async () => {
+                  const ok = await copyToClipboard(createdInvoiceId);
+                  if (ok) { setIdCopied(true); setTimeout(() => setIdCopied(false), 2000); }
+                }}
+              >
+                {idCopied ? '✓ Copied ID!' : `Copy ID (#${createdInvoiceId})`}
+              </button>
+            )}
+          </div>
+          <button onClick={() => setSuccess(null)}>✕</button>
+        </div>
       )}
 
       {error && (
