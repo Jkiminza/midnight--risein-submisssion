@@ -156,7 +156,16 @@ const initializeProviders = async (logger: Logger): Promise<NightDeskProviders> 
   };
 
   const config = await callWithReconnect(() => connectedAPI.getConfiguration());
-  const proofServerUri = config.proverServerUri!;
+  const rawProverUri = config.proverServerUri || 'http://localhost:6300';
+  const proofServerUrl = new URL(rawProverUri);
+  if (typeof window !== 'undefined') {
+    if (window.location.hostname === 'localhost' && proofServerUrl.hostname === '127.0.0.1') {
+      proofServerUrl.hostname = 'localhost';
+    } else if (window.location.hostname === '127.0.0.1' && proofServerUrl.hostname === 'localhost') {
+      proofServerUrl.hostname = '127.0.0.1';
+    }
+  }
+  const proofServerUri = proofServerUrl.toString();
   const shieldedAddresses = await callWithReconnect(() => connectedAPI.getShieldedAddresses());
   const zkConfigProvider = new FetchZkConfigProvider<NightDeskCircuitKeys>(window.location.origin, fetch.bind(window));
 
