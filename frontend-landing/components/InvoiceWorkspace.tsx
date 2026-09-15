@@ -260,22 +260,15 @@ export default function InvoiceWorkspace({
                 <label className="mb-2 block text-sm font-medium text-[#33405F]">
                   Amount
                 </label>
-                <div className="flex h-[56px] overflow-hidden rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] transition focus-within:border-[#FF6A00] focus-within:ring-4 focus-within:ring-[#FF6A00]/10">
-                  <input
-                    type="number"
-                    placeholder="e.g. 1000"
-                    value={amount}
-                    onChange={(e) => onAmount(e.target.value)}
-                    className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#29375F] outline-none placeholder:text-[#A1A7BA]"
-                  />
-                  <button
-                    type="button"
-                    className="flex items-center gap-2 border-l border-[#D8DCEF] px-4 text-sm font-semibold text-[#394563]"
-                  >
-                    USD
-                    <span className="text-xs text-[#8A91A9]">▾</span>
-                  </button>
-                </div>
+<div className="flex h-[56px] rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] transition focus-within:border-[#FF6A00] focus-within:ring-4 focus-within:ring-[#FF6A00]/10">
+                <input
+                  type="number"
+                  placeholder="e.g. 1000"
+                  value={amount}
+                  onChange={(e) => onAmount(e.target.value)}
+                  className="min-w-0 flex-1 bg-transparent px-4 text-sm text-[#29375F] outline-none placeholder:text-[#A1A7BA]"
+                />
+              </div>
               </div>
 
               <div>
