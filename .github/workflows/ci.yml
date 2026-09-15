@@ -19,9 +19,9 @@ jobs:
           cache: 'npm'
       - name: Install Dependencies
         run: npm install
-      - name: Type Check Contract
+      - name: Build Contract
         run: cd contract && npm run build
-      - name: Type Check API
+      - name: Build API
         run: cd api && npm run build
 
   build-contract:
@@ -52,6 +52,8 @@ jobs:
           cache: 'npm'
       - name: Install Dependencies
         run: npm install
+      - name: Build Contract
+        run: cd contract && npm run build
       - name: Run Vitest Contract Tests
         run: cd contract && npm test
 
@@ -68,6 +70,8 @@ jobs:
           cache: 'npm'
       - name: Install Dependencies
         run: npm install
+      - name: Build Contract First
+        run: cd contract && npm run build
       - name: Build API Package
         run: cd api && npm run build
 
