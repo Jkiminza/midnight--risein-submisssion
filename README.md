@@ -21,6 +21,7 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 - [Demo / Screenshots](#demo--screenshots)
 - [Features](#features)
 - [How it works](#how-it-works)
+- [Privacy model](#privacy-model)
 - [Deployed contract](#deployed-contract)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -61,6 +62,22 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 - Only the creator can `cancel` — enforced inside the circuit via their identity hash.
 
 Statuses are read from the public indexer (no wallet needed to browse). Creating/accepting/settling/cancelling requires the [Lace](https://lace.io) wallet connected to Preview.
+
+## Privacy model
+
+Night Desk is built on Midnight's zero-knowledge architecture to guarantee strict confidentiality between transacting parties while maintaining public verifiability on the chain.
+
+### What an Observer (or Ledger Scraper) Can Learn:
+- **Invoice ID:** The sequential number assigned to the invoice (e.g., `#1`, `#2`).
+- **Invoice Status:** Whether an invoice is `Open (0)`, `Accepted (1)`, `Settled (2)`, or `Cancelled (3)`.
+- **Creator Identity Hash:** A cryptographic commitment (`creatorHash`) derived from the creator's local secret key, preventing unauthorized cancellations while hiding their actual wallet address or identity in plain text.
+- **Contract Activity Timestamp:** When state transitions occurred on-chain.
+
+### What an Observer Cannot Learn (Guaranteed by ZK Proofs):
+- **Invoice Amount:** The exact monetary value or denomination being billed.
+- **Memo / Description:** What the invoice is for (e.g., specific project names, terms, or services).
+- **Counterparty Details:** Who is paying or receiving the invoice beyond the private ZK proofs exchanged.
+- **Financial History:** Aggregate business revenue, client rates, or balance sheets.
 
 ## Deployed contract
 
