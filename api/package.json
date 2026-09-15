@@ -9,5 +9,8 @@
   "scripts": {
     "build": "rm -rf dist && tsc --project tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "night-desk-contract": "*"
   }
 }

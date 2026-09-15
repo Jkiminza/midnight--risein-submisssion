@@ -3,6 +3,7 @@ import { CompiledContract } from '@midnight-ntwrk/compact-js';
 export * as NightDesk from '../managed/night-desk/contract/index.js';
 export { createWitnesses, createNightDeskPrivateState } from './witnesses.js';
 export type { NightDeskPrivateState } from './witnesses.js';
+export { ledger } from '../managed/night-desk/contract/index.js';
 
 import * as NightDeskContract from '../managed/night-desk/contract/index.js';
 import { createWitnesses } from './witnesses.js';

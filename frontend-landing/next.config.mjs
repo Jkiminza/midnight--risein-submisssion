@@ -6,6 +6,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  turbopack: {
+    resolveAlias: {
+      'isomorphic-ws': './lib/isomorphic-ws.ts',
+    },
+  },
 }
 
 export default nextConfig

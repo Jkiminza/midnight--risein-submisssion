@@ -6,13 +6,13 @@
   "workspaces": [
     "contract",
     "api",
-    "ui",
+    "frontend-landing",
     "deploy"
   ],
   "scripts": {
     "compile": "cd contract && npm run compact",
     "build": "cd contract && npm run build && cd ../api && npm run build",
-    "dev": "cd ui && npm run dev",
+    "dev": "cd frontend-landing && npm run dev",
     "proof-server": "docker run --rm -p 6300:6300 midnightntwrk/proof-server:8.1.0 midnight-proof-server --network preview",
     "deploy": "npm run build && cd deploy && npm run deploy"
   },

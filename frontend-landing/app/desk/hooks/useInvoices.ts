@@ -9,8 +9,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ContractState } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import { NightDesk, type NightDeskPrivateState as _PS } from 'night-desk-contract';
-import { statusLabel } from '../../../api/src/utils/index.js';
-import { type InvoiceStatus } from '../../../api/src/common-types.js';
+import { statusLabel } from '../../../../api/dist/utils/index.js';
+import { type InvoiceStatus } from '../../../../api/dist/common-types.js';
 
 const INDEXER_URL = import.meta.env.VITE_INDEXER_URL ?? 'https://indexer.preview.midnight.network/api/v4/graphql';
 

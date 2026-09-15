@@ -4,7 +4,7 @@
  * wallet operations to the InvoiceAPI.
  */
 
-import { InvoiceAPI, type NightDeskCircuitKeys, type NightDeskProviders } from '../../../api/src/index';
+import { InvoiceAPI, type NightDeskCircuitKeys, type NightDeskProviders } from '../../../../api/dist/index.js';
 import { type ContractAddress, fromHex, toHex } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import { BehaviorSubject, catchError, concatMap, filter, firstValueFrom, interval, map, type Observable, take, throwError, timeout } from 'rxjs';
 import { pipe as fnPipe } from 'fp-ts/function';

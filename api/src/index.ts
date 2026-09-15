@@ -7,7 +7,7 @@
  * @packageDocumentation
  */
 
-import * as NightDesk from '../../contract/managed/night-desk/contract/index.js';
+import * as NightDesk from 'night-desk-contract';
 import { type ContractAddress } from '@midnight-ntwrk/midnight-js-protocol/compact-runtime';
 import { type Logger } from 'pino';
 import {
@@ -21,7 +21,7 @@ import {
   CompiledNightDeskContract,
   createNightDeskPrivateState,
   type NightDeskPrivateState,
-} from '../../contract/src/index';
+} from 'night-desk-contract';
 import * as utils from './utils/index.js';
 import { deployContract, findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import { map, type Observable } from 'rxjs';

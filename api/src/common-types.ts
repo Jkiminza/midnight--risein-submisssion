@@ -5,7 +5,7 @@
 
 import { type MidnightProviders } from '@midnight-ntwrk/midnight-js-types';
 import { type FoundContract } from '@midnight-ntwrk/midnight-js-contracts';
-import { type NightDeskPrivateState } from '../../contract/src/index';
+import { type NightDeskPrivateState } from 'night-desk-contract';
 
 export const nightDeskPrivateStateKey = 'nightDeskPrivateState';
 export type PrivateStateId = typeof nightDeskPrivateStateKey;
