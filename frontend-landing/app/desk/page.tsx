@@ -117,6 +117,7 @@ export default function DeskPage() {
   const [wallet, setWallet] = useState<ConnectedAPI | null>(null);
   const [address, setAddress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const [contractAddress, setContractAddress] = useState(DEFAULT_CONTRACT);
   const [joinInput, setJoinInput] = useState('');
@@ -248,6 +249,7 @@ export default function DeskPage() {
     setCreating(true);
     setCreateStatus('Generating proof…');
     setError(null);
+    setSuccess(null);
     try {
       const manager = getManager();
       const result = await resolveDeployment(manager);
@@ -261,6 +263,8 @@ export default function DeskPage() {
       });
       setCreateStatus(null);
       setAmount(''); setMemo('');
+      setSuccess(`Invoice #${entryId} created successfully! Amount & memo bound to ZK proof.`);
+      setTimeout(() => setSuccess(null), 6000);
       setTimeout(() => refresh(), 3000);
     } catch (e: any) {
       setError(friendlyError(e));
@@ -348,6 +352,10 @@ export default function DeskPage() {
         </div>
       </section>
       <div className="hero-divider"></div>
+
+      {success && (
+        <div className="success-bar"><span>{success}</span><button onClick={() => setSuccess(null)}>✕</button></div>
+      )}
 
       {error && (
         <div className="error-bar"><span>{error}</span><button onClick={() => setError(null)}>✕</button></div>

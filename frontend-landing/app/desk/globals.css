@@ -293,6 +293,15 @@ body {
 }
 .error-bar button { background: none; border: none; color: inherit; cursor: pointer; }
 
+.success-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-bottom: 16px; padding: 12px 16px;
+  background: rgba(46,160,67,0.1); border: 1px solid rgba(46,160,67,0.3);
+  border-radius: 8px; color: #2ea043; font-size: 14px;
+  box-shadow: 0 2px 8px rgba(46,160,67,0.12);
+}
+.success-bar button { background: none; border: none; color: inherit; cursor: pointer; }
+
 /* ── Layout ─────────────────────────────────────────────────────────── */
 
 .layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; align-items: start; }
