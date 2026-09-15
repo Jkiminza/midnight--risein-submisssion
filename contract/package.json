@@ -14,7 +14,7 @@
   },
   "scripts": {
     "compact": "compact compile invoice.compact managed/night-desk",
-    "build": "tsc --project tsconfig.build.json && mkdir -p ../frontend-landing/public/keys ../frontend-landing/public/zkir && cp -Rf ./dist/managed/night-desk/keys/* ../frontend-landing/public/keys/ && cp -Rf ./dist/managed/night-desk/zkir/* ../frontend-landing/public/zkir/",
+    "build": "tsc --project tsconfig.build.json && mkdir -p ../frontend-landing/public/keys ../frontend-landing/public/zkir && if [ -d ./managed/night-desk/keys ]; then cp -Rf ./managed/night-desk/keys/* ../frontend-landing/public/keys/; fi && if [ -d ./managed/night-desk/zkir ]; then cp -Rf ./managed/night-desk/zkir/* ../frontend-landing/public/zkir/; fi",
     "test": "vitest run"
   }
 }
