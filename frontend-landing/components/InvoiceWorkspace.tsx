@@ -331,7 +331,7 @@ export default function InvoiceWorkspace({
 
         {/* ── Public Ledger ────────────────────────────────────────────── */}
         {view === "ledger" && (
-          <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6">
+          <div className="mt-5">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#1F2C50]">
                 Public Ledger
@@ -343,11 +343,11 @@ export default function InvoiceWorkspace({
             </div>
 
             {ledgerError ? (
-              <div className="rounded-[14px] bg-[#FDECEC] px-4 py-6 text-center text-sm text-[#8C2F2F]">
+              <div className="py-6 text-center text-sm text-[#8C2F2F]">
                 Ledger error: {ledgerError}
               </div>
             ) : invoices.length === 0 ? (
-              <div className="rounded-[14px] bg-[#F0F1FA] px-4 py-10 text-center text-sm text-[#69728C]">
+              <div className="py-10 text-center text-sm text-[#69728C]">
                 {loading ? (
                   <span className="inline-flex items-center gap-2">
                     <Loader2 size={15} className="animate-spin" /> Reading
@@ -358,8 +358,8 @@ export default function InvoiceWorkspace({
                 )}
               </div>
             ) : (
-              <div className="overflow-hidden rounded-[16px] border border-[#E1E3F0]">
-                <div className="flex items-center gap-3 border-b border-[#E1E3F0] bg-[#F0F1FA] px-4 py-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#7A829D]">
+              <div className="divide-y divide-[#E1E3F0]">
+                <div className="flex items-center gap-3 pb-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#9298AB]">
                   <span className="w-12">ID</span>
                   <span className="w-24">Status</span>
                   <span className="w-24">Amount</span>
@@ -373,7 +373,7 @@ export default function InvoiceWorkspace({
                       onSelect(inv.id);
                       setView("detail");
                     }}
-                    className="flex w-full items-center gap-3 border-b border-[#E1E3F0] bg-white px-4 py-3.5 text-left transition last:border-b-0 hover:bg-[#F7F8FD]"
+                    className="flex w-full items-center gap-3 py-3 text-left transition hover:text-[#1F2C50]"
                   >
                     <span className="w-12 font-mono text-sm text-[#29375F]">
                       #{inv.id}
@@ -398,7 +398,7 @@ export default function InvoiceWorkspace({
 
         {/* ── Invoice Detail ───────────────────────────────────────────── */}
         {view === "detail" && (
-          <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6">
+          <div className="mt-5">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="text-[18px] font-semibold tracking-[-0.02em] text-[#1F2C50]">
                 Invoice Detail
@@ -412,24 +412,24 @@ export default function InvoiceWorkspace({
             </div>
 
             {!selected ? (
-              <div className="rounded-[14px] bg-[#F0F1FA] px-4 py-10 text-center text-sm text-[#69728C]">
+              <div className="py-10 text-center text-sm text-[#69728C]">
                 Select an invoice from the ledger to inspect it. Amounts you
                 created stay in your wallet — everyone else sees redacted
                 entries.
               </div>
             ) : (
               <div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                    <span className="text-xs font-medium text-[#9298AB]">
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
                       Invoice
                     </span>
-                    <span className="mt-1 block font-mono text-sm font-medium text-[#29375F]">
+                    <span className="mt-1 block font-mono text-sm font-medium text-[#1F2C50]">
                       #{selected.id}
                     </span>
                   </div>
-                  <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                    <span className="text-xs font-medium text-[#9298AB]">
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
                       Status
                     </span>
                     <span className="mt-1 block">
@@ -438,21 +438,21 @@ export default function InvoiceWorkspace({
                       </span>
                     </span>
                   </div>
-                  <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                    <span className="text-xs font-medium text-[#9298AB]">
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
                       Amount
                     </span>
-                    <span className="mt-1 block font-mono text-sm font-medium text-[#29375F]">
+                    <span className="mt-1 block font-mono text-sm font-medium text-[#1F2C50]">
                       {selectedLocal
                         ? selectedLocal.amount
                         : "•••••• (private)"}
                     </span>
                   </div>
-                  <div className="rounded-[16px] border border-[#E1E3F0] bg-white p-4">
-                    <span className="text-xs font-medium text-[#9298AB]">
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
                       Memo
                     </span>
-                    <span className="mt-1 block text-sm text-[#29375F]">
+                    <span className="mt-1 block text-sm text-[#1F2C50]">
                       {selectedLocal
                         ? decodeMemo(selectedLocal.memo)
                         : "Private memo — visible only to the parties. Share it off-chain."}
