@@ -280,7 +280,7 @@ Contributions are welcome. Please keep PRs small and focused, and reference the 
 
 - **Known issue (Preview)** — first use of a circuit requires the proof server to generate parameters; the first invoice can take noticeably longer.
 - **Known issue** — stale browser caches of `ui/` (renamed to `frontend-landing/`) may leave `vercel.json` and deploy references out of date.
-- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, and an audit log of lifecycle transitions.
+- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, audit log of lifecycle transitions, and 5-job GitHub Actions CI/CD pipeline integration.
 
 ## License
 
