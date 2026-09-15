@@ -76,7 +76,9 @@ function friendlyError(e: any): string {
   if (msg.includes('insufficient') || msg.includes('DUST')) return 'Insufficient funds. Request tokens from the Preview faucet.';
   if (msg.includes('Network ID')) return 'Network configuration error. Make sure Lace is set to Preview.';
   if (msg.includes('shutdown') || msg.includes('Remote API')) return 'The Lace connection was interrupted. Unlock Lace, then reload the page and reconnect.';
-  if (msg.includes('submission') || msg.includes('Submission')) return 'Transaction failed to submit. Please try again.';
+  if (msg.includes('scoped transaction') || msg.includes('submission') || msg.includes('Submission')) {
+    return 'Transaction submission failed. Ensure your Lace wallet has sufficient DUST and tNIGHT tokens, and keep the proof server running.';
+  }
   return msg || 'An unexpected error occurred. Check the browser console for details.';
 }
 
