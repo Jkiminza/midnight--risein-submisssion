@@ -118,7 +118,7 @@ export default function InvoiceWorkspace({
 
   return (
     <section className="w-full">
-      <div className="rounded-[28px] border border-[#D9DCF0] bg-[#F7F7FD]/90 p-4 shadow-[0_18px_50px_rgba(45,55,100,0.08)] sm:p-5 md:p-6">
+      <div>
         {/* Contract header */}
         <div className="flex flex-col gap-4 border-b border-[#E1E3F0] pb-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
@@ -238,7 +238,7 @@ export default function InvoiceWorkspace({
 
         {/* ── New Invoice ──────────────────────────────────────────────── */}
         {view === "invoice" && (
-          <div className="mt-5 rounded-[24px] border border-[#E1E3F0] bg-[#FBFBFE] p-5 sm:p-6 md:p-7">
+          <div className="mt-5 space-y-5">
             <div className="mb-7 flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#FFF0E7] text-[#FF6A00]">
                 <LockKeyhole size={19} strokeWidth={1.8} />
@@ -260,7 +260,7 @@ export default function InvoiceWorkspace({
                 <label className="mb-2 block text-sm font-medium text-[#33405F]">
                   Amount
                 </label>
-<div className="flex h-[56px] rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] transition focus-within:border-[#FF6A00] focus-within:ring-4 focus-within:ring-[#FF6A00]/10">
+<div className="flex h-[56px] transition focus-within:ring-4 focus-within:ring-[#FF6A00]/10">
                 <input
                   type="number"
                   placeholder="e.g. 1000"
@@ -282,12 +282,12 @@ export default function InvoiceWorkspace({
                   maxLength={32}
                   value={memo}
                   onChange={(e) => onMemo(e.target.value)}
-                  className="h-[56px] w-full rounded-[14px] border border-[#D8DCEF] bg-[#F8F9FE] px-4 text-sm text-[#29375F] outline-none transition placeholder:text-[#A1A7BA] focus:border-[#FF6A00] focus:ring-4 focus:ring-[#FF6A00]/10"
+                  className="h-[56px] w-full bg-transparent px-4 text-sm text-[#29375F] outline-none transition placeholder:text-[#A1A7BA] focus:ring-4 focus:ring-[#FF6A00]/10"
                 />
               </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-3 rounded-[14px] bg-[#F0F1FA] px-4 py-3.5">
+            <div className="mt-6 flex items-center gap-3 px-1 py-3.5">
               <ShieldCheck
                 size={18}
                 strokeWidth={1.8}
