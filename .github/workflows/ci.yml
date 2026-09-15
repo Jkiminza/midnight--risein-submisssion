@@ -1,4 +1,4 @@
-name: CI
+name: Night Desk CI
 
 on:
   push:
@@ -7,34 +7,84 @@ on:
     branches: [ master, main ]
 
 jobs:
-  build-and-test:
-  
+  lint-typecheck:
+    name: 1. Lint & Type Check
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Type Check Contract
+        run: cd contract && npm run build
+      - name: Type Check API
+        run: cd api && npm run build
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+  build-contract:
+    name: 2. Build Contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Contract & Copy Assets
+        run: cd contract && npm run build
 
-    - name: Install Dependencies
-      run: npm install
+  test-contract:
+    name: 3. Test Contract
+    runs-on: ubuntu-latest
+    needs: build-contract
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Vitest Contract Tests
+        run: cd contract && npm test
 
-    - name: Build Contract
-      run: cd contract && npm run build
+  build-api:
+    name: 4. Build API
+    runs-on: ubuntu-latest
+    needs: build-contract
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build API Package
+        run: cd api && npm run build
 
-    - name: Test Contract
-      run: cd contract && npm test
-
-    - name: Build API
-      run: cd api && npm run build
-
-    - name: Build Frontend (frontend-landing)
-      run: cd frontend-landing && npm run build
+  build-frontend:
+    name: 5. Build Frontend (Next.js)
+    runs-on: ubuntu-latest
+    needs: [build-contract, build-api]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build Contract & API first
+        run: cd contract && npm run build && cd ../api && npm run build
+      - name: Build Next.js Frontend
+        run: cd frontend-landing && npm run build
