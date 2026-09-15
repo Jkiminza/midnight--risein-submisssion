@@ -252,7 +252,7 @@ export default function DeskPage() {
       const manager = getManager();
       const result = await resolveDeployment(manager);
       setCreateStatus('Generating proof & submitting…');
-      const amt = amount.trim();
+      const amt = BigInt(amount.trim());
       const entryId = await result.api.createInvoice(amt, encodeMemo(memo.trim()));
       saveKnownInvoice(String(entryId), {
         amount: amount.trim(),
@@ -277,9 +277,10 @@ export default function DeskPage() {
     try {
       const manager = getManager();
       const result = await resolveDeployment(manager);
-      if (action === 'accept') await result.api.acceptInvoice(id);
-      else if (action === 'settle') await result.api.settleInvoice(id);
-      else await result.api.cancelInvoice(id);
+      const bigId = BigInt(id);
+      if (action === 'accept') await result.api.acceptInvoice(bigId);
+      else if (action === 'settle') await result.api.settleInvoice(bigId);
+      else await result.api.cancelInvoice(bigId);
       setTimeout(() => refresh(), 3000);
     } catch (e: any) {
       setError(friendlyError(e));
