@@ -5,7 +5,7 @@ Night Desk is a private invoice ledger on the [Midnight](https://midnight.networ
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green)
 ![Network](https://img.shields.io/badge/network-Preview-8b5cf6)
-[![Product X Profile](https://img.shields.io/badge/X%20Profile-%40NightDeskZK-black?logo=x)](https://x.com/NightDeskZK)
+[![Product X Profile](https://img.shields.io/badge/X%20Profile-%40Night__desk1-black?logo=x)](https://x.com/Night_desk1)
 
 ## Description
 
@@ -91,13 +91,15 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 - **Counterparty Details:** Who is paying or receiving the invoice beyond the private ZK proofs exchanged.
 - **Financial History:** Aggregate business revenue, client rates, or balance sheets.
 
-## Deployed contract
+## Deployed contract & Live App
 
 | | |
 |---|---|
 | Network | Midnight Preview |
 | Contract address | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` |
 | Circuit identity | `night-desk` |
+| **Live App URL** | **[nightdesk-cyan.vercel.app](https://nightdesk-cyan.vercel.app/)** |
+| **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing)** |
 
 The address is also baked into the frontend (`frontend-landing/.env.preview → NEXT_PUBLIC_DEFAULT_CONTRACT`), so the UI can join the deployed contract straight away.
 

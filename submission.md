@@ -19,10 +19,10 @@
 1. **Implementing privacy-critical core first:** Developed the Zero-Knowledge Compact smart contract (`invoice.compact`) and cryptographic witness binding before building the frontend interface.
 2. **Writing user-facing and technical documentation:** Complete documentation including README, architecture guides, privacy model, setup, and usage instructions.
 3. **Running CI/CD on codebase:** Fully automated GitHub Actions CI pipeline running across all 5 build/test jobs on every push.
-4. **Building in public & Product X profile:** Established a dedicated project X profile (`@NightDeskZK`) linked directly in the repository.
+4. **Building in public & Product X profile:** Established a dedicated project X profile (`@Night_desk1`) linked directly in the repository.
 
 ### **Level 5 Objectives:**
-1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses (`users.md`).
+1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `users.md` and the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing).
 2. **Structured feedback collection & prioritization:** Documenting developer/user friction points, feedback loops, and iterative improvements (`feedback.md`).
 3. **Documentation synchronization:** Keeping technical docs (`README.md`, `submission.md`) in sync with product evolution.
 4. **Milestone commit velocity:** Maintaining **50+ meaningful commits** (exceeding the 20 minimum).
@@ -34,13 +34,13 @@
 | Requirement | Status | Artifact / Link |
 | :--- | :---: | :--- |
 | **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
-| **Live Demo Link** | ✓ Deployed | [night-desk.vercel.app](https://night-desk.vercel.app) |
+| **Live Demo Link** | ✓ Deployed | [nightdesk-cyan.vercel.app](https://nightdesk-cyan.vercel.app/) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
-| **50 Preprod User Wallets** | ✓ Documented | `users.md` (Verifiable Preprod user wallet address ledger) |
+| **50 Preprod User Wallets & Form** | ✓ Documented | `users.md` & [Google Sheets Form](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing) |
 | **Feedback Loop Documentation** | ✓ Complete | `feedback.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |
-| **Product X Profile** | ✓ Linked | [@NightDeskZK](https://x.com/NightDeskZK) |
+| **Product X Profile** | ✓ Linked | [@Night_desk1](https://x.com/Night_desk1) |
 | **Demo Video (1 minute)** | ✓ Recorded | [Watch on YouTube](https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx) |
 | **README “Privacy Model” Section** | ✓ Documented | Detailed breakdown of what observers can and cannot learn in `README.md` |
 | **Product Proposal** | ✓ Submitted | `proposal.md` |
