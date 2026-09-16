@@ -34,7 +34,7 @@
 | Requirement | Status | Artifact / Link |
 | :--- | :---: | :--- |
 | **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
-| **Live Demo Link** | ✓ Deployed | [nightdesk-cyan.vercel.app](https://nightdesk-cyan.vercel.app/) |
+| **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
 | **50 Preprod User Wallets & Form** | ✓ Documented | `users.md` & [Google Sheets Form](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing) |
 | **Feedback Loop Documentation** | ✓ Complete | `feedback.md` (Structured user feedback & developer reflections) |
