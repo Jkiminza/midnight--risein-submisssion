@@ -1,4 +1,4 @@
-# Night Desk — Level 2 Submission & Checklist
+# Night Desk — Level 3 Submission & Checklist
 
 ## 1. Project Overview & Chosen Idea
 - **Project Name:** Night Desk
@@ -7,15 +7,15 @@
 
 ---
 
-## 2. Level 2 Learning Objectives & Implementation
+## 2. Level 3 Learning Objectives & Implementation
 1. **Designing a dApp around selective disclosure:** Implemented via Midnight Compact circuits (`invoice.compact`) where public indexers expose only invoice IDs and status codes, allowing auditors to verify payment settlement without scraping entire financial ledgers.
-2. **Writing contract and application tests:** Configured Vitest test suites (`contract/src/contract.test.ts`) covering private state generation, witness key provisioning, and compiled contract validation.
+2. **Writing contract and application tests:** Configured Vitest test suites (`contract/src/contract.test.ts`) covering private state generation, witness key provisioning, and compiled contract validation (**3+ passing unit tests**).
 3. **Setting up a CI/CD pipeline:** Established a robust 5-job GitHub Actions workflow (`.github/workflows/ci.yml`) performing automated build, type-checking, and test execution on every push.
 4. **Scoping a realistic product proposal:** Authored `proposal.md` and `feedback.md` mapping out Mainnet transition milestones, enterprise multi-wallet support, and developer ecosystem growth.
 
 ---
 
-## 3. Submission Checklist & Artifacts
+## 3. Level 3 Submission Checklist & Artifacts
 
 | Requirement | Status | Artifact / Link |
 | :--- | :---: | :--- |
