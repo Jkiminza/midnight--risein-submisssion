@@ -44,15 +44,15 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 - **Demo Video Walkthrough:** [Watch 1-Minute Demo on YouTube](https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx)
 
 ### 1. Lace Wallet Integration
-![Lace Wallet Integration](frontend-landing/public/lacewallet.png)
+![Lace Wallet Integration](public/lacewallet.png)
 *Connecting the Lace browser extension, managing network state on Midnight Preview, and signing ZK proof transactions.*
 
 ### 2. Passing Unit Tests
-![Passing Unit Tests](frontend-landing/public/tests.png)
+![Passing Unit Tests](public/tests.png)
 *Vitest test execution output demonstrating successful execution of contract test suites (3+ tests passing).*
 
 ### 3. CI/CD Pipeline
-![CI/CD Pipeline](frontend-landing/public/CI:CD.png)
+![CI/CD Pipeline](public/ci-cd.png)
 *GitHub Actions workflow running successfully across all 5 distinct verification jobs (Lint & Type Check, Build Contract, Test Contract, Build API, Build Frontend).*
 
 ## Features
