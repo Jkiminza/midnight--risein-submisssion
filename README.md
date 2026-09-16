@@ -39,9 +39,21 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 - [Support matrix](#support-matrix)
 - [Notes](#notes)
 
-## Demo / Screenshots
+## Demo / Screenshots & Walkthrough
 
-![Screenshots pending] — add your own screenshots of the landing page, the invoice workspace, and a settled ledger row here.
+- **Demo Video Walkthrough:** [Watch 1-Minute Demo on YouTube](https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx)
+
+### 1. Lace Wallet Integration
+![Lace Wallet Integration](frontend-landing/public/lacewallet.png)
+*Connecting the Lace browser extension, managing network state on Midnight Preview, and signing ZK proof transactions.*
+
+### 2. Passing Unit Tests
+![Passing Unit Tests](frontend-landing/public/tests.png)
+*Vitest test execution output demonstrating successful execution of contract test suites (3+ tests passing).*
+
+### 3. CI/CD Pipeline
+![CI/CD Pipeline](frontend-landing/public/CI:CD.png)
+*GitHub Actions workflow running successfully across all 5 distinct verification jobs (Lint & Type Check, Build Contract, Test Contract, Build API, Build Frontend).*
 
 ## Features
 
