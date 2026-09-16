@@ -20,7 +20,7 @@ import InvoiceWorkspace from '../../components/InvoiceWorkspace';
 import './globals.css';
 
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID ?? 'preview';
-const DEFAULT_CONTRACT = process.env.NEXT_PUBLIC_DEFAULT_CONTRACT ?? '';
+const DEFAULT_CONTRACT = process.env.NEXT_PUBLIC_DEFAULT_CONTRACT ?? 'ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7';
 const KNOWN_INVOICES_KEY = 'night-desk-invoices';
 
 type WalletState = 'detecting' | 'no-wallet' | 'ready' | 'connecting' | 'connected';
