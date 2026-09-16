@@ -5,7 +5,7 @@ Night Desk is a private invoice ledger on the [Midnight](https://midnight.networ
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-Apache--2.0-green)
 ![Network](https://img.shields.io/badge/network-Preview-8b5cf6)
-![Platform](https://img.shields.io/badge/platform-web-lightgrey)
+[![Product X Profile](https://img.shields.io/badge/X%20Profile-%40NightDeskZK-black?logo=x)](https://x.com/NightDeskZK)
 
 ## Description
 
