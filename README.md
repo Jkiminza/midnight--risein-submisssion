@@ -18,6 +18,7 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 ## Table of Contents
 
 - [Description](#description)
+- [Reviewer docs](#reviewer-docs)
 - [Demo / Screenshots](#demo--screenshots)
 - [Features](#features)
 - [How it works](#how-it-works)
@@ -38,6 +39,18 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 - [Contact / support](#contact--support)
 - [Support matrix](#support-matrix)
 - [Notes](#notes)
+
+## Reviewer docs
+
+For reviewers and judges, these documents complement the README:
+
+- [**user-guide.md**](user-guide.md) — 5-minute walkthrough of the live app (issue a private invoice, verify the ledger shows no amount/memo).
+- [**architecture.md**](architecture.md) — technical deep dive: ZK circuit design, disclose points, write/read paths, and why privacy is preserved.
+- [**testing.md**](testing.md) — test strategy, the 3 passing contract tests, and the 5-job CI/CD pipeline.
+- [**submission.md**](submission.md) — full Level 2–5 submission checklist and evidence.
+- [**proposal.md**](proposal.md) — mainnet transition & product roadmap.
+- [**feedback.md**](feedback.md) — developer experience reflections.
+- [**users.md**](users.md) — onboarded Preview wallet address ledger.
 
 ## Demo / Screenshots & Walkthrough
 
