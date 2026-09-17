@@ -66,7 +66,6 @@ frontend-landing/public/zkir/
 
 # Deploy wallet seed + state (never commit)
 deploy/.env
-users.md
 
 # ai scratch work
 .midnight-expert

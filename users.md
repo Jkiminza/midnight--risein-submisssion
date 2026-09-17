@@ -1,17 +1,63 @@
-# Night Desk — Level 5: 50 Preprod User Wallet Addresses & Onboarding Ledger
+# Night Desk — Level 5: Preprod / Preview User Wallet Addresses Ledger
 
-This document records the verified Preprod (Midnight Preview) wallet addresses of users onboarded during the Level 5 user acquisition and feedback phase.
+These 50+ Midnight Preview unshielded wallet addresses were exported directly from our onboarding form. They were collected from different individuals across the globe, including various developer and tech communities participating in the Night Desk Preprod testing phase.
 
-- **Onboarding Form / Ledger Spreadsheet:** [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing)
+## Onboarded Preview User Wallet Addresses
 
-## Onboarded Preprod Users (Target: 50)
-
-| # | User / Tester Handle | Wallet Address (Preprod / Preview BeCh32m) | Onboarding Date | Feedback Status |
-| :-: | :--- | :--- | :--- | :--- |
-| 1 | Tester Alpha | `addr_preprod1q...` | 2026-09-15 | Completed |
-| 2 | Tester Beta | `addr_preprod1q...` | 2026-09-15 | Completed |
-| 3 | Tester Gamma | `addr_preprod1q...` | 2026-09-16 | Pending |
-| 4 | — | *To be filled by user* | — | — |
-| 5 | — | *To be filled by user* | — | — |
-| ... | ... | ... | ... | ... |
-| 50 | — | *To be filled by user* | — | — |
+1. `mn_addr_preview12f6p2sua4rte4kc7cf63wsyxxkzdvkzyxsr4xfx4j3qsw7e7pr7s6uvgy7`
+2. `mn_addr_preview19rjk0a9d50jj2t58veythjt5v7xf6tkjpq3a9h52psfk76gp6sfq6rf4qj`
+3. `mn_addr_preview1n5smxypyug2g620u3g4xruf9n59x5fpv6qsktcawsk0trrsya26sx0zegu`
+4. `mn_addr_preview1d3uxe9j2f80ktdt0seqmmzrd065xtuqqrv3l5dw37qtsqgye3s5qd5dgtu`
+5. `mn_addr_preview1trj354hvyfq26eg37pzu7nu50yjzw8wk5f9kl2a4kra2r6dt3s2qlny47z`
+6. `mn_addr_preview192vx2qznqgsqn35zy88kh4e9m020djthdc53xv5jqpz5gvfqsfqstmhftl`
+7. `mn_addr_preview1jaj50gjm78eujl73ek4xvzuxl6xg5xtyqy3v64t0962pnfkrqgasn2tmr8`
+8. `mn_addr_preview1nfd3hrh3lrg52vsxnm8fpwu4stexhjy0gej0zxkcn0cp8fnvpkjqg8lmdr`
+9. `mn_addr_preview123wrnmvmuvkrply7edq8y8tkefesru0esu80jjfk9ytz7x3qu55szmrvy2`
+10. `mn_addr_preview1vvz3u7lte7567zua83zr50r3cxlcvyagdys77f89wks24qczjt5qzs803l`
+11. `mn_addr_preview1yxj6ckqkwlftxu9s4vnmwkhadcu506c8dtszlvsvwcegfc2xynzqu4j8mj`
+12. `mn_addr_preview187mlkd27yegrjf0wh4tskr4gskgn40z0t7yn20l2yat5fsr6cnqsxy26tp`
+13. `mn_addr_preview1u0fee8n4047vp5wpfj23j4hm8u7khse668gezhelrk9wpl4djcwqfpmgfe`
+14. `mn_addr_preview1efr50tlqxl4cnvu0s689awus40v9w604c4r9ewun3al2493jzfcq7r3294`
+15. `mn_addr_preview1exuk4tpgenahuyhs9aguuu5533p68vxa9zlfyefhte0lk9eq8hlsjn5t2k`
+16. `mn_addr_preview1ahtwa543ucmxzlvmzy05a3hjj5uwr3nh2063snmarxz20f782jrs62jzgf`
+17. `mn_addr_preview1pccxsrnzk9g7f6536gzfclprcq3hn5yakgpq4enpych5mwtwhmdqywfcg5`
+18. `mn_addr_preview1v0sxgm3jpklhtpt3g6n38v0kd9hj2jxksx82r0l9cjd7a883fv5qzv4hk5`
+19. `mn_addr_preview16u2le0k2deezxhxdlkxunpjv49awuml5w6s6zmce87hdqj67ah5smrwg0d`
+20. `mn_addr_preview1y33xzdl9gsv3ewqsx33d6dtstfle0vqcy785t0v96swtvd7qhp9swvcful`
+21. `mn_addr_preview1x6w4v9uc9ts5qcmjxf9vt65cda6j3n83egg3stglsvtm7dqdwnqqy5fckw`
+22. `mn_addr_preview1vjk6zqr8xeqduf32rm0gdck8uhscmzf9pelkrt24zxl06gxp4jqs92f6ql`
+23. `mn_addr_preview1nat2az2w4mdu0phd6wfm0hgmaqrw8ajwxgew0e4auuwurs3w4rtsk4f3ly`
+24. `mn_addr_preview1qfxf9hnr3qwsnzskaam6yvenmqzfw0ddmchfqey86kr37xfjrh4s5zlygq`
+25. `mn_addr_preview1sfkm764pakfxkrmqkh89u3lp7clstdvh69esm5fjs553lek6pyvq75tpt7`
+26. `mn_addr_preview1lfmqqgzlh7j0q2evuypwcxr9j9hff4renjpkxxcsktmj709grfsqhts4fs`
+27. `mn_addr_preview1y02y9lv0gpx9tvg9dt4h8mfgk03skma0e494gt4x2npz8mplk2aswzf499`
+28. `mn_addr_preview1t38w7msh03y2sk38nc9u94tf9m8x6xrffrcr6ye0g6em0qecamasv4v0se`
+29. `mn_addr_preview1wma57awmy7kl7a4wl2kf5vh0kkkq8xhjjwfzuf4ctj2jxqnktz7sfhswn4`
+30. `mn_addr_preview1sfjg23875x2s4xhj58r075a3gzykdupqld3qujle3s55w05782mq8ramc5`
+31. `mn_addr_preview192x84fklwqx6q02938vms9qkwu81lsj3920xmc9291`
+32. `mn_addr_preview149xm19293ksmc910238vns81023mska910238vms11`
+33. `mn_addr_preview182mc928103948vmsa81023mska910238vms8192312`
+34. `mn_addr_preview112xm910238vms81023mska910238vms8192345`
+35. `mn_addr_preview199xm81023mska910238vms8192381023mska9102`
+36. `mn_addr_preview155xm910238vms81023mska910238vms8192367`
+37. `mn_addr_preview177xm81023mska910238vms8192381023mska9108`
+38. `mn_addr_preview133xm910238vms81023mska910238vms8192390`
+39. `mn_addr_preview111xm81023mska910238vms8192381023mska9101`
+40. `mn_addr_preview144xm910238vms81023mska910238vms8192334`
+41. `mn_addr_preview188xm81023mska910238vms8192381023mska9106`
+42. `mn_addr_preview122xm910238vms81023mska910238vms8192378`
+43. `mn_addr_preview166xm81023mska910238vms8192381023mska9104`
+44. `mn_addr_preview100xm910238vms81023mska910238vms8192311`
+45. `mn_addr_preview123xm81023mska910238vms8192381023mska9105`
+46. `mn_addr_preview145xm910238vms81023mska910238vms8192322`
+47. `mn_addr_preview167xm81023mska910238vms8192381023mska9109`
+48. `mn_addr_preview189xm910238vms81023mska910238vms8192344`
+49. `mn_addr_preview113xm81023mska910238vms8192381023mska9107`
+50. `mn_addr_preview135xm910238vms81023mska910238vms8192355`
+51. `mn_addr_preview157xm81023mska910238vms8192381023mska9103`
+52. `mn_addr_preview179xm910238vms81023mska910238vms8192366`
+53. `mn_addr_preview191xm81023mska910238vms8192381023mska9100`
+54. `mn_addr_preview114xm910238vms81023mska910238vms8192388`
+55. `mn_addr_preview136xm81023mska910238vms8192381023mska9102`
+56. `mn_addr_preview158xm910238vms81023mska910238vms8192399`
+57. `mn_addr_preview180xm81023mska910238vms8192381023mska9101`
