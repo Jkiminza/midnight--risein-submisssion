@@ -99,7 +99,7 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 | Contract address | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` |
 | Circuit identity | `night-desk` |
 | **Live App URL** | **[night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk)** |
-| **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing)** |
+| **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing)** |
 
 The address is also baked into the frontend (`frontend-landing/.env.preview → NEXT_PUBLIC_DEFAULT_CONTRACT`), so the UI can join the deployed contract straight away.
 

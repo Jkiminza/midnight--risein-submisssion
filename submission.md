@@ -22,7 +22,7 @@
 4. **Building in public & Product X profile:** Established a dedicated project X profile (`@Night_desk1`) linked directly in the repository.
 
 ### **Level 5 Objectives:**
-1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `users.md` and the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing).
+1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `users.md` and the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing).
 2. **Structured feedback collection & prioritization:** Documenting developer/user friction points, feedback loops, and iterative improvements (`feedback.md`).
 3. **Documentation synchronization:** Keeping technical docs (`README.md`, `submission.md`) in sync with product evolution.
 4. **Milestone commit velocity:** Maintaining **50+ meaningful commits** (exceeding the 20 minimum).
@@ -36,7 +36,7 @@
 | **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
 | **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
-| **50 Preprod User Wallets & Form** | ✓ Documented | `users.md` & [Google Sheets Form](https://docs.google.com/spreadsheets/d/1IqY-f7JaF-s-_MCxpnZxnqcyfZDXguathsrBBBioVSM/edit?usp=sharing) |
+| **50 Preview / Preprod User Wallets & Form** | ✓ Documented | `users.md` (Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
 | **Feedback Loop Documentation** | ✓ Complete | `feedback.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |
