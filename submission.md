@@ -36,7 +36,7 @@
 | **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
 | **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
-| **50 Preview / Preprod User Wallets & Form** | ✓ Documented | `users.md` (Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
+| **57 Preview / Preprod User Wallets & Form** | ✓ Documented | `users.md` (57 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
 | **Feedback Loop Documentation** | ✓ Complete | `feedback.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |

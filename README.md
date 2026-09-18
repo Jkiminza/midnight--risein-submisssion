@@ -51,6 +51,7 @@ For reviewers and judges, these documents complement the README:
 - [**proposal.md**](proposal.md) — mainnet transition & product roadmap.
 - [**feedback.md**](feedback.md) — developer experience reflections.
 - [**users.md**](users.md) — onboarded Preview wallet address ledger.
+- [**CHANGELOG.md**](CHANGELOG.md) — chronological summary of milestones and fixes.
 
 ## Demo / Screenshots & Walkthrough
 
@@ -314,7 +315,7 @@ On first run the script creates a wallet seed in `deploy/.env`, prints the unshi
 
 Contributions are welcome. Please keep PRs small and focused, and reference the issue they address.
 
-- **Branches/PRs** — work on a feature branch off `master` and open a PR against [welson-ai/night-desk](https://github.com/welson-ai/night-desk).
+- **Branches/PRs** — work on a feature branch off `master` and open a PR against [welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein).
 - **Code style** — TypeScript throughout; follow the existing formatting in `contract/`, `api/`, and `frontend-landing/`. No comments unless they explain intent.
 - **Commits** — one logical change per commit, prefixed by package: `contract:`, `api:`, `desk:`, `docs:`, `deploy:`.
 - **Lint/typecheck** — run `npm run typecheck` in `api/` and `npm test` in `contract/` before opening a PR.
@@ -324,7 +325,7 @@ Contributions are welcome. Please keep PRs small and focused, and reference the 
 
 - **Known issue (Preview)** — first use of a circuit requires the proof server to generate parameters; the first invoice can take noticeably longer.
 - **Known issue** — stale browser caches of `ui/` (renamed to `frontend-landing/`) may leave `vercel.json` and deploy references out of date.
-- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, audit log of lifecycle transitions, and 5-job GitHub Actions CI/CD pipeline integration.
+- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, and audit-log of lifecycle transitions (CI/CD is already live — 5 jobs; see `testing.md`).
 
 ## License
 
@@ -338,7 +339,7 @@ Licensed under the [Apache License 2.0](LICENSE).
 
 ## Contact / support
 
-- **Issue tracker** — [github.com/welson-ai/night-desk/issues](https://github.com/welson-ai/night-desk/issues)
+- **Issue tracker** — [github.com/welson-ai/night-desk-risein/issues](https://github.com/welson-ai/night-desk-risein/issues)
 - **Network support** — Midnight Preview [Documentation](https://docs.midnight.network/) and the [Preview faucet](https://midnight-tmnight-preview.nethermind.dev/)
 
 ## Support matrix
