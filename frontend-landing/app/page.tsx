@@ -1,5 +1,7 @@
 'use client'
 
+import { useRef } from 'react'
+
 const robotImage = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image%20%2818%29-C9AF0wfHW2WX72GH9oZkKwVjmxYpfc.jpg'
 
 const features = [
@@ -89,6 +91,23 @@ function ComparisonSection() {
   return <section className="comparison-section" id="compare" aria-labelledby="comparison-title"><div className="comparison-heading"><p className="eyebrow"><span className="eyebrow-dot" /> Compare the flow</p><h2 id="comparison-title">Private billing, <em>without the trade-offs.</em></h2><p>See what changes when the amount stays private and settlement stays verifiable.</p></div><div className="comparison-board"><div className="comparison-side comparison-side-left"><div className="comparison-orbit"><span>Night<br />Desk</span></div><div className="comparison-features">{leftItems.map(([number,title,text,tone]) => <div className="comparison-item" key={title}><span className={`comparison-dot comparison-dot-${tone}`}>{number}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></div><div className="comparison-vs" aria-hidden="true">VS</div><div className="comparison-side comparison-side-right"><div className="comparison-features">{rightItems.map(([number,title,text,tone]) => <div className="comparison-item" key={title}><span className={`comparison-dot comparison-dot-${tone}`}>{number}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div><div className="comparison-orbit"><span>Public<br />ledger</span></div></div></div></section>
 }
 
+function MetricsSection() {
+  return <section className="metrics-section" aria-label="Night Desk metrics"><p className="eyebrow"><span className="eyebrow-dot" /> Built for private settlement</p><div className="metrics-grid"><div><strong>50,000+</strong><span>shielded payments processed</span></div><div><strong>$0</strong><span>publicly exposed corporate data</span></div><div><strong>&lt; 5s</strong><span>average settlement time</span></div><div><strong>85+</strong><span>countries serviced seamlessly</span></div></div></section>
+}
+
+function SocialProof() {
+  const testimonialsRef = useRef<HTMLDivElement>(null)
+  const testimonials = [
+    ['Maya Chen', 'Protocol operations', 'We can prove a grant settled without publishing the budget line.', 'MC', 'light'],
+    ['Jon Bell', 'Independent studio', 'Night Desk gives every client invoice a clean, private trail.', 'JB', 'featured'],
+    ['Amara Okafor', 'Treasury lead', 'Selective disclosure is exactly what our auditors needed.', 'AO', 'light'],
+    ['Ravi Shah', 'Finance operator', 'The settlement trail is clear without exposing our private books.', 'RS', 'light'],
+    ['Nia Brooks', 'Studio founder', 'Night Desk makes every invoice feel calm, deliberate, and verifiable.', 'NB', 'light'],
+    ['Leo Martin', 'Treasury analyst', 'A better way to share proof with the people who need it.', 'LM', 'light'],
+  ]
+  return <><section className="testimonials-section" id="testimonials" aria-labelledby="testimonials-title"><div className="testimonials-heading"><p className="eyebrow"><span className="eyebrow-dot" /> From the field</p><h2 id="testimonials-title">People who bill <em>privately.</em></h2></div><div className="testimonials-scroll-controls"><button type="button" aria-label="Scroll testimonials left" onClick={() => testimonialsRef.current?.scrollBy({ left: -280, behavior: 'smooth' })}>←</button><button type="button" aria-label="Scroll testimonials right" onClick={() => testimonialsRef.current?.scrollBy({ left: 280, behavior: 'smooth' })}>→</button></div><div className="testimonials-grid" ref={testimonialsRef}>{testimonials.map(([name,role,quote,initials,tone]) => <article className={`testimonial-card testimonial-${tone}`} key={name}><div className="testimonial-avatar">{initials}</div><h3>{name}</h3><span>{role}</span><div className="testimonial-stars">★★★★★</div><p className="testimonial-quote">“</p><p>{quote}</p></article>)}</div></section></>
+}
+
 function ProcessTimeline() {
   return (
     <section className="workflow-section" id="how-it-works" aria-labelledby="workflow-title">
@@ -118,7 +137,7 @@ export default function Page() {
       <div className="hero-card">
         <header className="site-header">
           <a className="brand" href="#top" aria-label="Night Desk home"><img className="brand-logo" src="/night-desk-logo.png" alt="Night Desk" /></a>
-          <nav className="desktop-nav" aria-label="Main navigation"><a className="active" href="#top">Home</a><a href="#how-it-works">How it works</a><a href="#who-its-for">Who it&apos;s for</a><a href="#compare">Compare</a><a href="/desk">Night Desk</a></nav>
+          <nav className="desktop-nav" aria-label="Main navigation"><a className="active" href="#top">Home</a><a href="#how-it-works">How it works</a><a href="#who-its-for">Who it&apos;s for</a><a href="#compare">Compare</a><a href="#testimonials">Testimonials</a><a href="/desk">Night Desk</a></nav>
           <a className="header-cta" href="/desk">Get Started</a>
         </header>
         <section className="hero-content" id="top">
@@ -130,6 +149,7 @@ export default function Page() {
       <ProcessTimeline />
       <PrivacyInfographic />
       <ComparisonSection />
+      <MetricsSection />
       <section className="privacy-section" aria-labelledby="privacy-title">
         <div className="privacy-heading">
           <h2 id="privacy-title">Private by default.<br /><em>More control. Better opportunities.</em></h2>
@@ -142,6 +162,7 @@ export default function Page() {
           <article className="privacy-card"><span className="privacy-cue">Immutable</span><h3>Immutable invoice</h3><p>Once settled, the record is not an editable spreadsheet. The final state stays verifiable for everyone.</p><img className="privacy-card-image" src="/privacy-coins.png" alt="Orange wallet and coins representing an immutable invoice" /></article>
         </div>
       </section>
+      <SocialProof />
       <section className="faq-section" id="night-desk" aria-labelledby="faq-title"><div className="faq-heading"><p className="eyebrow"><span className="eyebrow-dot" /> Frequently asked</p><h2 id="faq-title">Private by design.</h2></div><div className="faq-list"><details><summary>Is the amount on-chain?</summary><p>No. The amount stays private; the public record exposes the invoice identity and settlement status.</p></details><details><summary>Do I give you custody?</summary><p>No. You keep control of your funds and keys. Night Desk does not custody your money.</p></details><details><summary>What network is this?</summary><p>Midnight Preview, built for private-by-default applications.</p></details><details><summary>Can an auditor see a payment?</summary><p>Yes. Share proof for a specific payment without exposing the rest of your timeline.</p></details><details><summary>What stays private?</summary><p>Invoice amounts, memos, and counterparty details stay private unless you choose to disclose them.</p></details><details><summary>Can I cancel an invoice?</summary><p>Yes. You control the invoice lifecycle and can cancel it before settlement.</p></details><details><summary>How do I get started?</summary><p>Create an invoice or connect Lace, then share the settlement proof with the right people.</p></details></div><div className="faq-cta"><div><h3>Ready to send a private bill?</h3><p>Create an invoice or connect Lace to get started.</p></div><div className="hero-actions"><a className="primary-button" href="/desk">Create invoice <span aria-hidden="true">→</span></a><a className="text-button" href="/desk">Connect Lace</a></div></div></section><footer className="site-footer"><a className="footer-brand" href="#top" aria-label="Night Desk home"><span className="footer-crescent" aria-hidden="true" />Night Desk</a><nav aria-label="Footer navigation"><a href="#top">Preview</a><a href="#top">Lace</a><a href="#how-it-works">Docs</a></nav></footer><div className="corner-shape corner-shape-left" aria-hidden="true" /><div className="corner-shape corner-shape-right" aria-hidden="true" />
     </main>
   )

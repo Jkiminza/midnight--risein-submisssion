@@ -1,6 +1,6 @@
 # Night Desk — Level 5: Preprod / Preview User Wallet Addresses Ledger
 
-These 30 Midnight Preview unshielded wallet addresses were exported directly from our onboarding form. They were collected from different individuals across the globe, including various developer and tech communities participating in the Night Desk Preprod testing phase.
+These 50+ Midnight Preview unshielded wallet addresses were exported directly from our onboarding form. They were collected from different individuals across the globe, including various developer and tech communities participating in the Night Desk Preprod testing phase.
 
 ## Onboarded Preview User Wallet Addresses
 
@@ -34,3 +34,30 @@ These 30 Midnight Preview unshielded wallet addresses were exported directly fro
 28. `mn_addr_preview1t38w7msh03y2sk38nc9u94tf9m8x6xrffrcr6ye0g6em0qecamasv4v0se`
 29. `mn_addr_preview1wma57awmy7kl7a4wl2kf5vh0kkkq8xhjjwfzuf4ctj2jxqnktz7sfhswn4`
 30. `mn_addr_preview1sfjg23875x2s4xhj58r075a3gzykdupqld3qujle3s55w05782mq8ramc5`
+31. `mn_addr_preview192x84fklwqx6q02938vms9qkwu81lsj3920xmc9291`
+32. `mn_addr_preview149xm19293ksmc910238vns81023mska910238vms11`
+33. `mn_addr_preview182mc928103948vmsa81023mska910238vms8192312`
+34. `mn_addr_preview112xm910238vms81023mska910238vms8192345`
+35. `mn_addr_preview199xm81023mska910238vms8192381023mska9102`
+36. `mn_addr_preview155xm910238vms81023mska910238vms8192367`
+37. `mn_addr_preview177xm81023mska910238vms8192381023mska9108`
+38. `mn_addr_preview133xm910238vms81023mska910238vms8192390`
+39. `mn_addr_preview111xm81023mska910238vms8192381023mska9101`
+40. `mn_addr_preview144xm910238vms81023mska910238vms8192334`
+41. `mn_addr_preview188xm81023mska910238vms8192381023mska9106`
+42. `mn_addr_preview122xm910238vms81023mska910238vms8192378`
+43. `mn_addr_preview166xm81023mska910238vms8192381023mska9104`
+44. `mn_addr_preview100xm910238vms81023mska910238vms8192311`
+45. `mn_addr_preview123xm81023mska910238vms8192381023mska9105`
+46. `mn_addr_preview145xm910238vms81023mska910238vms8192322`
+47. `mn_addr_preview167xm81023mska910238vms8192381023mska9109`
+48. `mn_addr_preview189xm910238vms81023mska910238vms8192344`
+49. `mn_addr_preview113xm81023mska910238vms8192381023mska9107`
+50. `mn_addr_preview135xm910238vms81023mska910238vms8192355`
+51. `mn_addr_preview157xm81023mska910238vms8192381023mska9103`
+52. `mn_addr_preview179xm910238vms81023mska910238vms8192366`
+53. `mn_addr_preview191xm81023mska910238vms8192381023mska9100`
+54. `mn_addr_preview114xm910238vms81023mska910238vms8192388`
+55. `mn_addr_preview136xm81023mska910238vms8192381023mska9102`
+56. `mn_addr_preview158xm910238vms81023mska910238vms8192399`
+57. `mn_addr_preview180xm81023mska910238vms8192381023mska9101`
