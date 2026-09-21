@@ -52,6 +52,8 @@ For reviewers and judges, these documents complement the README:
 - [**feedback.md**](feedback.md) — developer experience reflections.
 - [**users.md**](users.md) — onboarded Preview wallet address ledger.
 - [**CHANGELOG.md**](CHANGELOG.md) — chronological summary of milestones and fixes.
+- [**brand-brief.md**](brand-brief.md) — brand identity reference (palette, type, voice).
+- [**x-profile.md**](x-profile.md) — product X profile and content playbook.
 
 ## Demo / Screenshots & Walkthrough
 

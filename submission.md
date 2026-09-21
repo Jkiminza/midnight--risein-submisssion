@@ -44,5 +44,6 @@
 | **Demo Video (1 minute)** | ✓ Recorded | [Watch on YouTube](https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx) |
 | **README “Privacy Model” Section** | ✓ Documented | Detailed breakdown of what observers can and cannot learn in `README.md` |
 | **Reviewer Documentation Pack** | ✓ Complete | `user-guide.md` (live walkthrough), `architecture.md` (technical deep-dive), `testing.md` (tests + CI) |
+| **Brand & Social Briefs** | ✓ Complete | `brand-brief.md` (identity/palette/voice) & `x-profile.md` (product X playbook for `@Night_desk1`) |
 | **Product Proposal** | ✓ Submitted | `proposal.md` |
 | **Minimum 20 Meaningful Commits** | ✓ Exceeded | **50+ meaningful commits** in git history |
