@@ -64,4 +64,4 @@ Job ordering encodes a real dependency: `contract/` must be built before `api/` 
 ## 5. References
 
 - `README.md` — Testing section and Support matrix
-- `submission.md` — Level 2/4 checklists referencing the 3+ passing tests
+- `Submission.md` — Level 2/4 checklists referencing the 3+ passing tests

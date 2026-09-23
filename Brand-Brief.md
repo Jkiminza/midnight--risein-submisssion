@@ -96,6 +96,6 @@ Make confidential billing verifiable without sacrificing privacy. Anyone can con
 
 ## 9. Related docs
 
-- `x-profile.md` — social profile and content plan.
+- `X-Profile.md` — social profile and content plan.
 - `README.md` — product, privacy model, setup.
-- `user-guide.md` — reviewer walkthrough.
+- `User-Guide.md` — reviewer walkthrough.

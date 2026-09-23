@@ -92,7 +92,7 @@ proof-server/      # Docker recipe for the ZK proof server (port 6300)
 ## 8. Related documents
 
 - `README.md` — overview, privacy model, setup, API reference
-- `testing.md` — test strategy and results
-- `user-guide.md` — step-by-step walkthrough for reviewers
-- `proposal.md` — mainnet transition roadmap
-- `feedback.md` — developer experience reflection
+- `Testing.md` — test strategy and results
+- `User-Guide.md` — step-by-step walkthrough for reviewers
+- `Proposal.md` — mainnet transition roadmap
+- `Feedback.md` — developer experience reflection

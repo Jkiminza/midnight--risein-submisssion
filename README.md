@@ -44,16 +44,16 @@ Night Desk solves this with zero-knowledge proofs. The Midnight compact circuit 
 
 For reviewers and judges, these documents complement the README:
 
-- [**user-guide.md**](user-guide.md) — 5-minute walkthrough of the live app (issue a private invoice, verify the ledger shows no amount/memo).
-- [**architecture.md**](architecture.md) — technical deep dive: ZK circuit design, disclose points, write/read paths, and why privacy is preserved.
-- [**testing.md**](testing.md) — test strategy, the 3 passing contract tests, and the 5-job CI/CD pipeline.
-- [**submission.md**](submission.md) — full Level 2–5 submission checklist and evidence.
-- [**proposal.md**](proposal.md) — mainnet transition & product roadmap.
-- [**feedback.md**](feedback.md) — developer experience reflections.
-- [**users.md**](users.md) — onboarded Preview wallet address ledger.
+- [**User-Guide.md**](User-Guide.md) — 5-minute walkthrough of the live app (issue a private invoice, verify the ledger shows no amount/memo).
+- [**Architecture.md**](Architecture.md) — technical deep dive: ZK circuit design, disclose points, write/read paths, and why privacy is preserved.
+- [**Testing.md**](Testing.md) — test strategy, the 3 passing contract tests, and the 5-job CI/CD pipeline.
+- [**Submission.md**](Submission.md) — full Level 2–5 submission checklist and evidence.
+- [**Proposal.md**](Proposal.md) — mainnet transition & product roadmap.
+- [**Feedback.md**](Feedback.md) — developer experience reflections.
+- [**Users.md**](Users.md) — onboarded Preview wallet address ledger.
 - [**CHANGELOG.md**](CHANGELOG.md) — chronological summary of milestones and fixes.
-- [**brand-brief.md**](brand-brief.md) — brand identity reference (palette, type, voice).
-- [**x-profile.md**](x-profile.md) — product X profile and content playbook.
+- [**Brand-Brief.md**](Brand-Brief.md) — brand identity reference (palette, type, voice).
+- [**X-Profile.md**](X-Profile.md) — product X profile and content playbook.
 
 ## Demo / Screenshots & Walkthrough
 
@@ -327,7 +327,7 @@ Contributions are welcome. Please keep PRs small and focused, and reference the 
 
 - **Known issue (Preview)** — first use of a circuit requires the proof server to generate parameters; the first invoice can take noticeably longer.
 - **Known issue** — stale browser caches of `ui/` (renamed to `frontend-landing/`) may leave `vercel.json` and deploy references out of date.
-- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, and audit-log of lifecycle transitions (CI/CD is already live — 5 jobs; see `testing.md`).
+- **Roadmap** — supporting multiple currencies/amount units, invoice search & filtering in the ledger, and audit-log of lifecycle transitions (CI/CD is already live — 5 jobs; see `Testing.md`).
 
 ## License
 
