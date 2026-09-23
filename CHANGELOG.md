@@ -5,8 +5,8 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 ## [v0.2.0] — 2026-09 — Level 5: users, docs & release hardening
 
 - **Live app** moved to the hosted Vercel project and linked in docs: https://night-deskv1.vercel.app/desk
-- **50+ Preview user onboardings** captured in `Users.md` from the Google Sheets onboarding form (individuals across multiple tech communities globally).
-- **Reviewer documentation pack** added: `User-Guide.md`, `Architecture.md`, `Testing.md`.
+- **50+ Preview user onboardings** captured in `USERS.md` from the Google Sheets onboarding form (individuals across multiple tech communities globally).
+- **Reviewer documentation pack** added: `USER-GUIDE.md`, `ARCHITECTURE.md`, `TESTING.md`.
 - **Preprod/Preview terminology** clarified throughout docs (Preview unshielded addresses, `mn_addr_preview…`).
 - Onboarding form link updated to the canonical ledger spreadsheet.
 
@@ -31,10 +31,10 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 - **Frontend** (`frontend-landing/`) — Next.js/Tailwind app with landing page and `/desk` workspace (New Invoice / Public Ledger / Invoice Detail tabs), Lace wallet integration.
 - **Proof server** — Dockerized (`midnightntwrk/proof-server:8.1.0`), port 6300.
 - **Deploy script** (`deploy/`) — headless Preview deployment with wallet seed management (gitignored).
-- **Docs** — `README.md` (privacy model), `Proposal.md`, `Feedback.md`, `Submission.md` Level 2–4 checklists.
+- **Docs** — `README.md` (privacy model), `PROPOSAL.md`, `FEEDBACK.md`, `SUBMISSION.md` Level 2–4 checklists.
 - **Project assets** — `public/` screenshots, branded landing imagery.
 
-## Planned (from `Proposal.md`)
+## Planned (from `PROPOSAL.md`)
 
 - Mainnet transition: audits, decentralized prover network, multi-sig deployment.
 - Enterprise: hardware wallets, multi-sig approval flows, selective-disclosure compliance exports.

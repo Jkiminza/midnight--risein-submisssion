@@ -19,7 +19,7 @@ Public profile and social playbook for the Night Desk product account.
 
 ## Header / avatar
 
-- **Avatar:** the Night Desk crescent-moon brand mark on the orange `#FF6A00` background (see `Brand-Brief.md`).
+- **Avatar:** the Night Desk crescent-moon brand mark on the orange `#FF6A00` background (see `BRAND-BRIEF.md`).
 - **Header:** the "Private invoice. Public settlement tape." visual — the orbit illustration from `frontend-landing` landing hero.
 
 ## Content pillars
@@ -54,11 +54,11 @@ Public profile and social playbook for the Night Desk product account.
 
 - Reply to Midnight Network and Lace wallet posts; tag them in build milestones.
 - Post every PR that goes green in CI with a small build note.
-- Cross-post demo-day and hackathon submission updates (RiseIn, Superteam) and link from `Submission.md`.
+- Cross-post demo-day and hackathon submission updates (RiseIn, Superteam) and link from `SUBMISSION.md`.
 - Track mentions of `@Night_desk1` weekly; respond within 24h.
 
 ## Related docs
 
-- `Brand-Brief.md` — identity, palette, tone.
+- `BRAND-BRIEF.md` — identity, palette, tone.
 - `README.md` — product overview + privacy model.
-- `Submission.md` — submission checklist and evidence links.
+- `SUBMISSION.md` — submission checklist and evidence links.
