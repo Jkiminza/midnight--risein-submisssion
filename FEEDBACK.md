@@ -1,5 +1,15 @@
 # Developer Feedback & Experience: Night Desk on Midnight
 
+## 0. User Feedback Summary
+
+Several users of Night Desk provided feedback and gave us updates on the product during the Preprod testing phase. They shared their experience using the dapp — what worked, what felt confusing, and what they would like to see improved. All feedback is recorded in the user feedback tracking sheet:
+
+- **Feedback Log (Excel / Google Sheets):** https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
+
+The onboarded testers (see `USERS.md`) reached out across our onboarding form and community channels; the spreadsheet captures each individual's notes, so the full user feedback loop is auditable alongside the developer reflections below.
+
+---
+
 ## 1. Overview
 Building **Night Desk** on the Midnight Network provided a deep, hands-on exploration of privacy-first, zero-knowledge smart contract development. Combining Midnight's Compact language, the Midnight.js SDK, the Lace wallet extension, and Next.js allowed us to construct a fully functional decentralized application where invoice lifecycles are publicly verifiable while sensitive financial amounts and memos remain strictly private on-device.
 
