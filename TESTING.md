@@ -30,7 +30,35 @@ npm test          # vitest run
 - Negative-path tests (accepting a settled invoice, cancelling someone else's invoice).
 - Property-based tests on the `Uint<64>` amount bounds.
 
-## 2. API type checking
+## 2. Contract compilation (circuits listed)
+
+Compiling the Compact contract produces the ZK circuits. From the repo root:
+
+```bash
+npm run compile    # cd contract && npm run compact
+```
+
+Successful output:
+
+```
+> night-desk-contract@0.1.0 compact
+> compact compile invoice.compact managed/night-desk
+
+Compiling 4 circuits:
+```
+
+The 4 circuits are emitted as `contract/managed/night-desk/zkir/*.zkir` / `*.bzkir` (plus `commit` artifacts under `keys/`):
+
+```
+acceptInvoice     .zkir / .bzkir
+cancelInvoice     .zkir / .bzkir
+createInvoice     .zkir / .bzkir
+settleInvoice     .zkir / .bzkir
+```
+
+One artifact set per circuit is proof that each circuit in `invoice.compact` compiled successfully. The same compile step runs inside CI (`build-contract` job) and is also exercised by test #3, which asserts `CompiledNightDeskContract` is a valid object produced from these circuits.
+
+## 3. API type checking
 
 The `api/` workspace validates its TypeScript build against the contract types:
 
@@ -39,7 +67,7 @@ cd api
 npm run build      # tsc emit + type checks (also run by CI)
 ```
 
-## 3. CI/CD pipeline (`.github/workflows/ci.yml`)
+## 4. CI/CD pipeline (`.github/workflows/ci.yml`)
 
 Five independent jobs run on push to `master`/`main` and on pull requests:
 
@@ -55,13 +83,13 @@ Job ordering encodes a real dependency: `contract/` must be built before `api/` 
 
 ![CI/CD Pipeline](public/ci-cd.png)
 
-## 4. How a reviewer verifies the tests
+## 5. How a reviewer verifies the tests
 
 1. Install dependencies: `npm install` (at the repo root).
 2. Run the contract suite: `cd contract && npm test` — expect **3 passing**.
 3. Trigger full verification the same way CI does: run the five jobs' commands above in order, or push to `master` and watch `.github/workflows/ci.yml` go green.
 
-## 5. References
+## 6. References
 
 - `README.md` — Testing section and Support matrix
 - `SUBMISSION.md` — Level 2/4 checklists referencing the 3+ passing tests
