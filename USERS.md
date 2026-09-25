@@ -2,6 +2,8 @@
 
 These 70 Midnight Preview unshielded wallet addresses were collected from different individuals across the globe, including various developer and tech communities participating in the Night Desk Preprod testing phase. The users onboarded and tested the product, and their feedback is recorded in the user feedback tracking sheet (see `FEEDBACK.md`).
 
+**Cross-check:** reviewers can verify the onboarded users against the official Google Sheets ledger — https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
+
 ## Onboarded Preview User Wallet Addresses
 
 1. `mn_addr_preview1lm5safed2jnkacdlphm7r0v8dll2zfpdn0z4f6e994v8qesv3xaq5cvdqc`
