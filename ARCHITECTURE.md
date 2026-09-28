@@ -5,7 +5,7 @@ This document explains how Night Desk is built: the Zero-Knowledge (ZK) Compact 
 - **Network:** Midnight Preview
 - **Deployed contract:** `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7`
 - **Live app:** https://night-deskv1.vercel.app/desk
-- **Source:** [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein)
+- **Source:** [github.com/Jkiminza/midnight--risein-submisssion](https://github.com/Jkiminza/midnight--risein-submisssion)
 
 ---
 

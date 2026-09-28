@@ -10,7 +10,7 @@ Public profile and social playbook for the Night Desk product account.
 | Display name | Night Desk |
 | Category | Blockchain · Product |
 | Live app | https://night-deskv1.vercel.app/desk |
-| GitHub | https://github.com/welson-ai/night-desk-risein |
+| GitHub | https://github.com/Jkiminza/midnight--risein-submisssion |
 | Demo video | https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx |
 
 ## Bio (suggested)

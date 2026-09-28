@@ -33,7 +33,7 @@
 
 | Requirement | Status | Artifact / Link |
 | :--- | :---: | :--- |
-| **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
+| **Public GitHub Repository** | ✓ Complete | [github.com/Jkiminza/midnight--risein-submisssion](https://github.com/Jkiminza/midnight--risein-submisssion) |
 | **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
 | **70 Preview / Preprod User Wallets & Form** | ✓ Documented | `USERS.md` (70 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |

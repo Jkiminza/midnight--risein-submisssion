@@ -320,7 +320,7 @@ On first run the script creates a wallet seed in `deploy/.env`, prints the unshi
 
 Contributions are welcome. Please keep PRs small and focused, and reference the issue they address.
 
-- **Branches/PRs** — work on a feature branch off `master` and open a PR against [welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein).
+- **Branches/PRs** — work on a feature branch off `master` and open a PR against [Jkiminza/midnight--risein-submisssion](https://github.com/Jkiminza/midnight--risein-submisssion).
 - **Code style** — TypeScript throughout; follow the existing formatting in `contract/`, `api/`, and `frontend-landing/`. No comments unless they explain intent.
 - **Commits** — one logical change per commit, prefixed by package: `contract:`, `api:`, `desk:`, `docs:`, `deploy:`.
 - **Lint/typecheck** — run `npm run typecheck` in `api/` and `npm test` in `contract/` before opening a PR.
@@ -344,7 +344,7 @@ Licensed under the [Apache License 2.0](LICENSE).
 
 ## Contact / support
 
-- **Issue tracker** — [github.com/welson-ai/night-desk-risein/issues](https://github.com/welson-ai/night-desk-risein/issues)
+- **Issue tracker** — [github.com/Jkiminza/midnight--risein-submisssion/issues](https://github.com/Jkiminza/midnight--risein-submisssion/issues)
 - **Network support** — Midnight Preview [Documentation](https://docs.midnight.network/) and the [Preview faucet](https://midnight-tmnight-preview.nethermind.dev/)
 
 ## Support matrix
