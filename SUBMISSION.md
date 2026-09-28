@@ -22,13 +22,13 @@
 4. **Building in public & Product X profile:** Established a dedicated project X profile (`@Night_desk1`) linked directly in the repository.
 
 ### **Level 5 Objectives:**
-1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `USERS.md` (70 addresses) and `LAUNCH_USERS.md` (30 launch-cohort addresses), cross-checkable against the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing).
+1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `USERS.md` (70 addresses) and `LAUNCH_USERS.md` (39 Preprod launch-cohort addresses), cross-checkable against the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing).
 2. **Structured feedback collection & prioritization:** Documenting developer/user friction points, feedback loops, and iterative improvements (`FEEDBACK.md`).
 3. **Documentation synchronization:** Keeping technical docs (`README.md`, `SUBMISSION.md`) in sync with product evolution.
 4. **Milestone commit velocity:** Maintaining **50+ meaningful commits** (exceeding the 20 minimum).
 
 ### **Level 6 Objectives:**
-1. **Launch-user cohort on a live Preprod deployment:** 30 distinct Midnight Preview unshielded Preprod addresses in `LAUNCH_USERS.md`, all onboarded against the deployed contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` and the live app at https://night-deskv1.vercel.app/desk. Each address is verifiable against the Google Sheets ledger linked in that file.
+1. **Launch-user cohort on a live Preprod deployment:** 39 distinct Midnight Preprod unshielded addresses in `LAUNCH_USERS.md`, collected from our earlier Preview user group ahead of the Preprod launch, and onboarded against the deployed contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` and the live app at https://night-deskv1.vercel.app/desk. Each address is verifiable against the Google Sheets ledger linked in that file.
 2. **Feedback-driven iteration with traceable code changes:** Four shipped Level 6 improvements in `FEEDBACK.md` §0.1, each linked to the exact file that implements it — CTA routing to `/desk` (`frontend-landing/app/page.tsx`), contract-address fallback for the hosted app (`frontend-landing/app/desk/page.tsx`), hardened ZK asset pipeline (`contract/package.json`, `.github/workflows/ci.yml`), and the reviewer documentation base (`ARCHITECTURE.md`, `TESTING.md`, `USER-GUIDE.md`).
 3. **Documented redeployment:** The redeployment of contract `ca117f7f…` on Midnight Preview and the dapp to the URL above is recorded in the README deployment table and `CHANGELOG.md` v0.3.0.
 4. **Public build-in with a verifiable social footprint:** Product X profile [@Night_desk1](https://x.com/Night_desk1) with published launch posts — [post 1](https://x.com/Night_desk1/status/2104694734140961251), [post 2](https://x.com/Night_desk1/status/2104694943193112640), [post 3](https://x.com/Night_desk1/status/2104693948975333493) — plus the playbook in `X-PROFILE.md` and brand identity in `BRAND-BRIEF.md`.
@@ -43,7 +43,7 @@
 | **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
 | **70 Preview / Preprod User Wallets & Form** | ✓ Documented | `USERS.md` (70 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
-| **Level 6 Launch Users** | ✓ Documented | `LAUNCH_USERS.md` (30 distinct Preprod addresses, cross-checkable via the Google Sheets ledger) |
+| **Level 6 Launch Users** | ✓ Documented | `LAUNCH_USERS.md` (39 distinct Preprod unshielded addresses, cross-checkable via the Google Sheets ledger) |
 | **Level 6 Improvements (with code links)** | ✓ Documented | `FEEDBACK.md` §0.1 — 4 shipped improvements, each linked to the exact code/diff |
 | **Feedback Loop Documentation** | ✓ Complete | `FEEDBACK.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |

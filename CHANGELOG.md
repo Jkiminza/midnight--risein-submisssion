@@ -4,7 +4,7 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 
 ## [v0.3.0] — 2026-09 — Level 6: launch users, feedback loop & redeployment
 
-- **`LAUNCH_USERS.md` added** — 30 distinct Midnight Preview unshielded Preprod addresses for the Level 6 launch cohort, each cross-checkable against the Google Sheets onboarding ledger.
+- **`LAUNCH_USERS.md` added** — 39 distinct Midnight **Preprod** unshielded addresses for the Level 6 launch cohort, collected from the earlier Preview user group ahead of the Preprod launch; each is cross-checkable against the Google Sheets onboarding ledger.
 - **`FEEDBACK.md` §0.1 added** — 4 Level 6 improvements, each linked to the exact code that implements it (Get Started → `/desk`, contract-address fallback, hardened ZK asset pipeline, reviewer doc base).
 - **User feedback loop closed** — launch-user responses recorded in the tracking spreadsheet linked from `USERS.md`, `LAUNCH_USERS.md`, and `FEEDBACK.md`.
 - **Redeployment** — Preview contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` re-joined on Midnight Preview; dapp redeployed to https://night-deskv1.vercel.app/desk and the redeployment is noted in the README deployment table.

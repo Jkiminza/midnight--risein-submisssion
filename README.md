@@ -51,7 +51,7 @@ For reviewers and judges, these documents complement the README:
 - [**PROPOSAL.md**](PROPOSAL.md) — mainnet transition & product roadmap.
 - [**FEEDBACK.md**](FEEDBACK.md) — developer experience reflections and Level 6 improvements with code links.
 - [**USERS.md**](USERS.md) — onboarded Preview wallet address ledger.
-- [**LAUNCH_USERS.md**](LAUNCH_USERS.md) — Level 6 launch users (30 distinct Preprod addresses).
+- [**LAUNCH_USERS.md**](LAUNCH_USERS.md) — Level 6 Preprod launch cohort (39 distinct Preprod addresses, from earlier Preview users).
 - [**CHANGELOG.md**](CHANGELOG.md) — chronological summary of milestones and fixes.
 - [**BRAND-BRIEF.md**](BRAND-BRIEF.md) — brand identity reference (palette, type, voice).
 - [**X-PROFILE.md**](X-PROFILE.md) — product X profile and content playbook.
@@ -117,7 +117,7 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 | Circuit identity | `night-desk` |
 | **Live App URL** | **[night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk)** |
 | **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing)** |
-| **Level 6 Launch Users** | **[LAUNCH_USERS.md](LAUNCH_USERS.md)** — 30 distinct Preprod addresses |
+| **Level 6 Launch Users** | **[LAUNCH_USERS.md](LAUNCH_USERS.md)** — 39 distinct Preprod addresses, onboarded from our earlier Preview users |
 | **Product X Profile** | **[@Night_desk1](https://x.com/Night_desk1)** — launch posts: [1](https://x.com/Night_desk1/status/2104694734140961251) · [2](https://x.com/Night_desk1/status/2104694943193112640) · [3](https://x.com/Night_desk1/status/2104693948975333493) |
 | **Last redeployment** | 2026-09-26 — contract `ca117f7f…` re-joined on Preview, dapp redeployed to the URL above |
 
@@ -299,7 +299,7 @@ night-desk/
 │
 ├── README.md                  # overview, privacy model, privacy-preserving demo
 ├── SUBMISSION.md              # Level 2–6 submission checklist & evidence table
-├── LAUNCH_USERS.md            # Level 6 launch cohort — 30 distinct Preprod addresses
+├── LAUNCH_USERS.md            # Level 6 Preprod launch cohort — 39 distinct Preprod addresses
 ├── USERS.md                   # full Preprod user wallet ledger (70 addresses)
 ├── FEEDBACK.md                # user feedback summary + Level 6 improvements (code links)
 ├── ARCHITECTURE.md            # ZK circuit design, disclose points, read/write paths

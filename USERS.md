@@ -4,6 +4,8 @@ These 70 Midnight Preview unshielded wallet addresses were collected from differ
 
 **Cross-check:** reviewers can verify the onboarded users against the official Google Sheets ledger — https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
 
+> **Note:** this is the earlier **Preview** cohort. Members of this group were carried forward onto Midnight **Preprod** ahead of the launch — those 39 Preprod addresses are recorded in `LAUNCH_USERS.md`. Only public wallet addresses are stored; no seeds or private key material are kept in this repository.
+
 ## Onboarded Preview User Wallet Addresses
 
 1. `mn_addr_preview1lm5safed2jnkacdlphm7r0v8dll2zfpdn0z4f6e994v8qesv3xaq5cvdqc`
