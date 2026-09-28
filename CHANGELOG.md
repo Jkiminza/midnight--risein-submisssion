@@ -12,6 +12,8 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 - **README/SUBMISSION synchronized** — Level 6 users row now points at `LAUNCH_USERS.md`; reviewer-docs matrix and Level 6 checklist entries added.
 - **Level 6 objectives made explicit** in `SUBMISSION.md`, each mapped to its artifact.
 - **X launch posts published and linked** — three live permalinks on [@Night_desk1](https://x.com/Night_desk1) recorded in `X-PROFILE.md`, `SUBMISSION.md`, and the README evidence table.
+- **UI: invoice lifecycle progress bar** — the desk workspace now renders a lifecycle track on the invoice detail view (`Issued → Accepted → Settled`, with `cancel` as a terminal off-ramp rather than a fourth sequential step), making the 4 compiled circuits visible in the product: `frontend-landing/components/InvoiceWorkspace.tsx` (`LifecycleTrack`). Semantic `<ol>`, `aria-current` on the active step, and clamping for out-of-range on-chain status values.
+- **UI: reduced-motion parity** — added a `prefers-reduced-motion` guard to `frontend-landing/app/desk/globals.css`, which previously had none while the landing stylesheet already did.
 
 ## [v0.2.0] — 2026-09 — Level 5: users, docs & release hardening
 

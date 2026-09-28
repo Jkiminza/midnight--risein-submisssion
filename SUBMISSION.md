@@ -17,13 +17,13 @@
 
 ### **Level 4 Objectives:**
 1. **Implementing privacy-critical core first:** Developed the Zero-Knowledge Compact smart contract (`invoice.compact`) and cryptographic witness binding before building the frontend interface.
-2. **Writing user-facing and technical documentation:** Complete documentation including README, architecture guides, privacy model, setup, and usage instructions.
+2. **Writing user-facing and technical documentation:** Complete documentation including README, architecture guides, privacy model, setup, and usage instructions. The product UI surfaces the privacy model directly — the invoice detail view renders a lifecycle track (`Issued → Accepted → Settled`, with `cancel` as a terminal off-ramp) so the four compiled circuits are visible in the product, and public fields (`id`, `status`, creator commitment) sit next to redacted private fields (amount, memo).
 3. **Running CI/CD on codebase:** Fully automated GitHub Actions CI pipeline running across all 5 build/test jobs on every push.
 4. **Building in public & Product X profile:** Established a dedicated project X profile (`@Night_desk1`) linked directly in the repository.
 
 ### **Level 5 Objectives:**
 1. **User acquisition & small-scale onboarding:** Onboarding real Preprod users and tracking verifiable wallet addresses via `USERS.md` (70 addresses) and `LAUNCH_USERS.md` (39 Preprod launch-cohort addresses), cross-checkable against the [Google Sheets Users Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing).
-2. **Structured feedback collection & prioritization:** Documenting developer/user friction points, feedback loops, and iterative improvements (`FEEDBACK.md`).
+2. **Structured feedback collection & prioritization:** Documenting developer/user friction points, feedback loops, and iterative improvements (`FEEDBACK.md`). Review feedback drove six shipped changes, each linked to its implementing code — including the lifecycle progress bar and the reduced-motion fix, both raised as UI gaps in the product workspace.
 3. **Documentation synchronization:** Keeping technical docs (`README.md`, `SUBMISSION.md`) in sync with product evolution.
 4. **Milestone commit velocity:** Maintaining **50+ meaningful commits** (exceeding the 20 minimum).
 
@@ -44,7 +44,8 @@
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
 | **70 Preview / Preprod User Wallets & Form** | ✓ Documented | `USERS.md` (70 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
 | **Level 6 Launch Users** | ✓ Documented | `LAUNCH_USERS.md` (39 distinct Preprod unshielded addresses, cross-checkable via the Google Sheets ledger) |
-| **Level 6 Improvements (with code links)** | ✓ Documented | `FEEDBACK.md` §0.1 — 4 shipped improvements, each linked to the exact code/diff |
+| **Level 6 Improvements (with code links)** | ✓ Documented | `FEEDBACK.md` §0.1 — 6 shipped improvements, each linked to the exact code/diff |
+| **UI: Invoice Lifecycle Progress Bar** | ✓ Shipped | `frontend-landing/components/InvoiceWorkspace.tsx` (`LifecycleTrack`) — `Issued → Accepted → Settled` on the detail view; `cancel` rendered as a terminal off-ramp, not a 4th sequential step |
 | **Feedback Loop Documentation** | ✓ Complete | `FEEDBACK.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |
