@@ -262,33 +262,54 @@ Flow: the UI builds a proof with the wallet + proof server, submits it through `
 
 ```
 night-desk/
-├── contract/                  # Midnight compact contract + compiled circuits
-│   ├── invoice.compact        #   contract source (private amount/memo logic)
-│   ├── managed/               #   compiled circuits + TS bindings (night-desk-contract)
-│   └── test/                  #   vitest contract tests
+├── contract/                  # Midnight Compact contract + compiled circuits
+│   ├── invoice.compact        #   contract source (private amount/memo logic, 4 circuits)
+│   ├── src/
+│   │   ├── index.ts           #   compiled contract export (CompiledNightDeskContract)
+│   │   ├── witnesses.ts       #   localSecretKey() witness
+│   │   └── contract.test.ts   #   vitest suite (3 passing tests)
+│   └── managed/               #   compiled circuits + TS bindings (night-desk-contract)
+│       ├── zkir/              #     one .zkir + .bzkir per circuit
+│       ├── keys/              #     prover/verifier per circuit
+│       └── contract/          #   generated TS bindings
 ├── api/                       # InvoiceAPI client library
 │   ├── src/
 │   │   ├── index.ts           #   InvoiceAPI: deploy/join + lifecycle calls
 │   │   ├── common-types.ts    #   shared types + INVOICE_STATUS
 │   │   └── utils/             #   indexer/ledger helpers
 │   └── dist/                  #   built flat output consumed by the UI
-├── frontend-landing/          # React + Next.js web app
+├── frontend-landing/          # Next.js + Tailwind web app
 │   ├── app/
 │   │   ├── layout.tsx         #   root layout
 │   │   ├── page.tsx           #   landing/hero page
 │   │   └── desk/
-│   │       ├── page.tsx       #   invoice workspace route
+│   │       ├── page.tsx       #   invoice workspace route (contract-address fallback)
 │   │       ├── globals.css    #   desk styles
 │   │       ├── hooks/         #   useInvoices (indexer reads)
 │   │       └── contexts/      #   BrowserNightDeskManager
 │   ├── components/
 │   │   └── InvoiceWorkspace.tsx  # New Invoice / Ledger / Detail tabs
-│   └── .env.preview           #   committed public config
+│   └── .env.preview           #   committed public config (NEXT_PUBLIC_DEFAULT_CONTRACT)
 ├── deploy/                    # headless Preview deployment script
 │   └── src/deploy.ts
 ├── proof-server/              # Docker recipe (port 6300)
-├── README.md
-└── LICENSE                    # Apache-2.0
+├── .github/workflows/ci.yml   # 5-job CI/CD pipeline
+├── public/                    # screenshots & brand assets used in the docs
+│
+├── README.md                  # overview, privacy model, privacy-preserving demo
+├── SUBMISSION.md              # Level 2–6 submission checklist & evidence table
+├── LAUNCH_USERS.md            # Level 6 launch cohort — 30 distinct Preprod addresses
+├── USERS.md                   # full Preprod user wallet ledger (70 addresses)
+├── FEEDBACK.md                # user feedback summary + Level 6 improvements (code links)
+├── ARCHITECTURE.md            # ZK circuit design, disclose points, read/write paths
+├── TESTING.md                 # test strategy, 3 passing tests, 5-job CI, compile log
+├── USER-GUIDE.md              # 5-minute live-app walkthrough
+├── PROPOSAL.md                # mainnet transition & product roadmap
+├── X-PROFILE.md               # product X profile & content playbook
+├── BRAND-BRIEF.md             # brand identity (palette, type, voice)
+├── CHANGELOG.md               # milestone history
+├── SECURITY.md  CONTRIBUTING.md  CODE_OF_CONDUCT.md  LICENSE
+└── package.json               # npm workspaces root (contract, api, frontend-landing, deploy)
 ```
 
 ## Testing
