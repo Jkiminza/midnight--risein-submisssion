@@ -10,6 +10,8 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 - **Redeployment** — Preview contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` re-joined on Midnight Preview; dapp redeployed to https://night-deskv1.vercel.app/desk and the redeployment is noted in the README deployment table.
 - **`TESTING.md` §2 added** — reproducible compact-compile log listing the 4 compiled circuits (`createInvoice`, `acceptInvoice`, `settleInvoice`, `cancelInvoice`).
 - **README/SUBMISSION synchronized** — Level 6 users row now points at `LAUNCH_USERS.md`; reviewer-docs matrix and Level 6 checklist entries added.
+- **Level 6 objectives made explicit** in `SUBMISSION.md`, each mapped to its artifact.
+- **X launch posts published and linked** — three live permalinks on [@Night_desk1](https://x.com/Night_desk1) recorded in `X-PROFILE.md`, `SUBMISSION.md`, and the README evidence table.
 
 ## [v0.2.0] — 2026-09 — Level 5: users, docs & release hardening
 

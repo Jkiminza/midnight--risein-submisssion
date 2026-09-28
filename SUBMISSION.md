@@ -31,7 +31,7 @@
 1. **Launch-user cohort on a live Preprod deployment:** 30 distinct Midnight Preview unshielded Preprod addresses in `LAUNCH_USERS.md`, all onboarded against the deployed contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` and the live app at https://night-deskv1.vercel.app/desk. Each address is verifiable against the Google Sheets ledger linked in that file.
 2. **Feedback-driven iteration with traceable code changes:** Four shipped Level 6 improvements in `FEEDBACK.md` §0.1, each linked to the exact file that implements it — CTA routing to `/desk` (`frontend-landing/app/page.tsx`), contract-address fallback for the hosted app (`frontend-landing/app/desk/page.tsx`), hardened ZK asset pipeline (`contract/package.json`, `.github/workflows/ci.yml`), and the reviewer documentation base (`ARCHITECTURE.md`, `TESTING.md`, `USER-GUIDE.md`).
 3. **Documented redeployment:** The redeployment of contract `ca117f7f…` on Midnight Preview and the dapp to the URL above is recorded in the README deployment table and `CHANGELOG.md` v0.3.0.
-4. **Public build-in with a verifiable social footprint:** Product X profile [@Night_desk1](https://x.com/Night_desk1) with launch posts, playbook in `X-PROFILE.md`, brand identity in `BRAND-BRIEF.md`.
+4. **Public build-in with a verifiable social footprint:** Product X profile [@Night_desk1](https://x.com/Night_desk1) with published launch posts — [post 1](https://x.com/Night_desk1/status/2104694734140961251), [post 2](https://x.com/Night_desk1/status/2104694943193112640), [post 3](https://x.com/Night_desk1/status/2104693948975333493) — plus the playbook in `X-PROFILE.md` and brand identity in `BRAND-BRIEF.md`.
 
 ---
 
@@ -48,7 +48,7 @@
 | **Feedback Loop Documentation** | ✓ Complete | `FEEDBACK.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |
-| **Product X Profile** | ✓ Linked | [@Night_desk1](https://x.com/Night_desk1) |
+| **Product X Profile** | ✓ Linked | [@Night_desk1](https://x.com/Night_desk1) — launch posts: [1](https://x.com/Night_desk1/status/2104694734140961251) · [2](https://x.com/Night_desk1/status/2104694943193112640) · [3](https://x.com/Night_desk1/status/2104693948975333493) (permalinks in `X-PROFILE.md`) |
 | **Demo Video (1 minute)** | ✓ Recorded | [Watch on YouTube](https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx) |
 | **README “Privacy Model” Section** | ✓ Documented | Detailed breakdown of what observers can and cannot learn in `README.md` |
 | **Reviewer Documentation Pack** | ✓ Complete | `USER-GUIDE.md` (live walkthrough), `ARCHITECTURE.md` (technical deep-dive), `TESTING.md` (tests + CI) |

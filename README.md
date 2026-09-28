@@ -118,6 +118,7 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 | **Live App URL** | **[night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk)** |
 | **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing)** |
 | **Level 6 Launch Users** | **[LAUNCH_USERS.md](LAUNCH_USERS.md)** — 30 distinct Preprod addresses |
+| **Product X Profile** | **[@Night_desk1](https://x.com/Night_desk1)** — launch posts: [1](https://x.com/Night_desk1/status/2104694734140961251) · [2](https://x.com/Night_desk1/status/2104694943193112640) · [3](https://x.com/Night_desk1/status/2104693948975333493) |
 | **Last redeployment** | 2026-09-26 — contract `ca117f7f…` re-joined on Preview, dapp redeployed to the URL above |
 
 The address is also baked into the frontend (`frontend-landing/.env.preview → NEXT_PUBLIC_DEFAULT_CONTRACT`), with a fallback to the same address in the desk page so the Vercel deployment joins the deployed contract out of the box.

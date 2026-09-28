@@ -13,6 +13,18 @@ Public profile and social playbook for the Night Desk product account.
 | GitHub | https://github.com/Jkiminza/midnight--risein-submisssion |
 | Demo video | https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx |
 
+## Published posts (Level 6 evidence)
+
+Live permalinks to the launch posts on [@Night_desk1](https://x.com/Night_desk1), so reviewers can verify the social footprint directly:
+
+| # | Post | Link |
+|---|---|---|
+| 1 | Launch post | https://x.com/Night_desk1/status/2104694734140961251 |
+| 2 | Launch post | https://x.com/Night_desk1/status/2104694943193112640 |
+| 3 | Launch post | https://x.com/Night_desk1/status/2104693948975333493 |
+
+Profile: **https://x.com/Night_desk1**
+
 ## Bio (suggested)
 
 > Private invoices on the Midnight Network. Amounts and memos stay off-chain — only a verifiable status reaches the ledger. Create, accept, settle, cancel. Lace-powered ZK proofs. Building in public on Midnight Preview.
