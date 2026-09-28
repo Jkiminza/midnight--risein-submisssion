@@ -14,6 +14,97 @@ import {
 
 type View = "invoice" | "ledger" | "detail";
 
+const LIFECYCLE_STAGES = [
+  { key: "issued", label: "Issued", hint: "Amount and memo bound into the proof" },
+  { key: "accepted", label: "Accepted", hint: "Counterparty confirmed the invoice" },
+  { key: "settled", label: "Settled", hint: "Payment proven on the public ledger" },
+] as const;
+
+function LifecycleTrack({ status }: { status: number }) {
+  const cancelled = status === 3;
+  // Clamp: status is on-chain data, so guard against out-of-range values.
+  const rawIndex = Number.isFinite(status) ? Math.trunc(status) : 0;
+  const activeIndex = Math.min(Math.max(rawIndex, 0), LIFECYCLE_STAGES.length - 1);
+
+  return (
+    <div className="mb-6 rounded-2xl border border-[#E6E9F2] bg-[#FBFCFE] p-5">
+      <div className="mb-4 flex items-baseline justify-between gap-3">
+        <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
+          Lifecycle
+        </span>
+        {cancelled ? (
+          <span className="text-xs font-semibold text-[#5C6575]">Cancelled — no further transitions</span>
+        ) : null}
+      </div>
+
+      <ol className="flex items-start" aria-label="Invoice lifecycle progress">
+        {LIFECYCLE_STAGES.map((stage, i) => {
+          const isDone = !cancelled && i < activeIndex;
+          const isCurrent = !cancelled && i === activeIndex;
+          const connectorDone = !cancelled && i < activeIndex;
+
+          return (
+            <li key={stage.key} className="flex flex-1 items-start last:flex-none">
+              <div className="flex min-w-0 flex-col items-center">
+                <span
+                  aria-current={isCurrent ? "step" : undefined}
+                  className={[
+                    "grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 text-xs font-bold transition-colors",
+                    isDone
+                      ? "border-[#29375F] bg-[#29375F] text-white"
+                      : isCurrent
+                        ? "border-[#F47C20] bg-[#FFF4E5] text-[#B45309]"
+                        : "border-[#D8DCE8] bg-white text-[#9298AB]",
+                  ].join(" ")}
+                >
+                  {isDone ? (
+                    <svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" focusable="false">
+                      <path
+                        d="M1.5 6.2 4.4 9.1 10.5 3"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ) : (
+                    i + 1
+                  )}
+                  <span className="sr-only">
+                    {isDone ? "completed" : isCurrent ? "current step" : "not started"}
+                  </span>
+                </span>
+                <span
+                  className={[
+                    "mt-2 text-center text-[0.8rem] font-semibold",
+                    isCurrent ? "text-[#1F2C50]" : isDone ? "text-[#29375F]" : "text-[#9298AB]",
+                  ].join(" ")}
+                >
+                  {stage.label}
+                </span>
+                <span className="mt-1 hidden max-w-[9.5rem] text-center text-[0.72rem] leading-snug text-[#9298AB] sm:block">
+                  {stage.hint}
+                </span>
+              </div>
+
+              {i < LIFECYCLE_STAGES.length - 1 ? (
+                <span
+                  aria-hidden="true"
+                  className={[
+                    "mx-2 mt-4 h-0.5 flex-1 rounded-full transition-colors",
+                    connectorDone ? "bg-[#29375F]" : "bg-[#E0E4EE]",
+                  ].join(" ")}
+                />
+              ) : null}
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 interface InvoiceItem {
   id: number;
   status: number;
@@ -419,6 +510,7 @@ export default function InvoiceWorkspace({
               </div>
             ) : (
               <div>
+                <LifecycleTrack status={selected.status} />
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div>
                     <span className="text-xs font-medium tracking-[0.08em] text-[#9298AB]">
