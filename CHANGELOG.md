@@ -7,17 +7,18 @@ All notable changes to Night Desk (reverse chronological). The project began as 
 - **`LAUNCH_USERS.md` added** — 39 distinct Midnight **Preprod** unshielded addresses for the Level 6 launch cohort, collected from the earlier Preview user group ahead of the Preprod launch; each is cross-checkable against the Google Sheets onboarding ledger.
 - **`FEEDBACK.md` §0.1 added** — 4 Level 6 improvements, each linked to the exact code that implements it (Get Started → `/desk`, contract-address fallback, hardened ZK asset pipeline, reviewer doc base).
 - **User feedback loop closed** — launch-user responses recorded in the tracking spreadsheet linked from `USERS.md`, `LAUNCH_USERS.md`, and `FEEDBACK.md`.
-- **Redeployment** — Preview contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` re-joined on Midnight Preview; dapp redeployed to https://night-deskv1.vercel.app/desk and the redeployment is noted in the README deployment table.
+- **Redeployment** — Preview contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` re-joined on Midnight Preview; dapp redeployed to https://nightdesk-cyan.vercel.app/desk and the redeployment is noted in the README deployment table.
 - **`TESTING.md` §2 added** — reproducible compact-compile log listing the 4 compiled circuits (`createInvoice`, `acceptInvoice`, `settleInvoice`, `cancelInvoice`).
 - **README/SUBMISSION synchronized** — Level 6 users row now points at `LAUNCH_USERS.md`; reviewer-docs matrix and Level 6 checklist entries added.
 - **Level 6 objectives made explicit** in `SUBMISSION.md`, each mapped to its artifact.
 - **X launch posts published and linked** — three live permalinks on [@Night_desk1](https://x.com/Night_desk1) recorded in `X-PROFILE.md`, `SUBMISSION.md`, and the README evidence table.
+- **Canonical live URL moved to `nightdesk-cyan.vercel.app`** across all docs (was `night-deskv1.vercel.app`); both routes verified reachable. Also fixed a stale `nightdesk.vercel.app/desk` reference in `USER-GUIDE.md` that 404'd.
 - **UI: invoice lifecycle progress bar** — the desk workspace now renders a lifecycle track on the invoice detail view (`Issued → Accepted → Settled`, with `cancel` as a terminal off-ramp rather than a fourth sequential step), making the 4 compiled circuits visible in the product: `frontend-landing/components/InvoiceWorkspace.tsx` (`LifecycleTrack`). Semantic `<ol>`, `aria-current` on the active step, and clamping for out-of-range on-chain status values.
 - **UI: reduced-motion parity** — added a `prefers-reduced-motion` guard to `frontend-landing/app/desk/globals.css`, which previously had none while the landing stylesheet already did.
 
 ## [v0.2.0] — 2026-09 — Level 5: users, docs & release hardening
 
-- **Live app** moved to the hosted Vercel project and linked in docs: https://night-deskv1.vercel.app/desk
+- **Live app** moved to the hosted Vercel project and linked in docs: https://nightdesk-cyan.vercel.app/desk
 - **50+ Preview user onboardings** captured in `USERS.md` from the Google Sheets onboarding form (individuals across multiple tech communities globally).
 - **Reviewer documentation pack** added: `USER-GUIDE.md`, `ARCHITECTURE.md`, `TESTING.md`.
 - **Preprod/Preview terminology** clarified throughout docs (Preview unshielded addresses, `mn_addr_preview…`).

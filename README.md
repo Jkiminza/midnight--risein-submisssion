@@ -115,7 +115,7 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 | Network | Midnight Preview |
 | Contract address | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` |
 | Circuit identity | `night-desk` |
-| **Live App URL** | **[night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk)** |
+| **Live App URL** | **[nightdesk-cyan.vercel.app/desk](https://nightdesk-cyan.vercel.app/desk)** |
 | **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing)** |
 | **Level 6 Launch Users** | **[LAUNCH_USERS.md](LAUNCH_USERS.md)** — 39 distinct Preprod addresses, onboarded from our earlier Preview users |
 | **Product X Profile** | **[@Night_desk1](https://x.com/Night_desk1)** — launch posts: [1](https://x.com/Night_desk1/status/2104694734140961251) · [2](https://x.com/Night_desk1/status/2104694943193112640) · [3](https://x.com/Night_desk1/status/2104693948975333493) |

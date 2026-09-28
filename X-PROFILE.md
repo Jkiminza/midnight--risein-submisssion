@@ -9,7 +9,7 @@ Public profile and social playbook for the Night Desk product account.
 | Handle | [@Night_desk1](https://x.com/Night_desk1) |
 | Display name | Night Desk |
 | Category | Blockchain · Product |
-| Live app | https://night-deskv1.vercel.app/desk |
+| Live app | https://nightdesk-cyan.vercel.app/desk |
 | GitHub | https://github.com/Jkiminza/midnight--risein-submisssion |
 | Demo video | https://youtu.be/fnVdqJmWzRc?si=cmyPQ_X5dY25YjKx |
 
@@ -58,7 +58,7 @@ Profile: **https://x.com/Night_desk1**
 
 ## Links to rotate in
 
-- Live app: https://night-deskv1.vercel.app/desk
+- Live app: https://nightdesk-cyan.vercel.app/desk
 - Contract (Preview): `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7`
 - Onboarding ledger: https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
 

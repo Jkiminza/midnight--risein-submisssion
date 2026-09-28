@@ -11,7 +11,7 @@ No local setup is required — everything runs on the hosted app.
 
 ## Step 1 — Open the live app
 
-Go to **https://night-deskv1.vercel.app/desk** (the `/desk` workspace of [nightdesk.vercel.app](https://nightdesk.vercel.app)).
+Go to **https://nightdesk-cyan.vercel.app/desk** — the Night Desk workspace of the deployed site. (The `/desk` route is served by this deployment only; the bare marketing root is at [nightdesk-cyan.vercel.app](https://nightdesk-cyan.vercel.app).)
 
 The workspace shows three tabs: **New Invoice**, **Public Ledger**, and **Invoice Detail**. The UI joins the deployed contract by default:
 
