@@ -6,7 +6,18 @@ Several users of Night Desk provided feedback and gave us updates on the product
 
 - **Feedback Log (Excel / Google Sheets):** https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
 
-The onboarded testers (see `USERS.md`) reached out across our onboarding form and community channels; the spreadsheet captures each individual's notes, so the full user feedback loop is auditable alongside the developer reflections below.
+The onboarded testers (see `USERS.md` and `LAUNCH_USERS.md`) reached out across our onboarding form and community channels; the spreadsheet captures each individual's notes, so the full user feedback loop is auditable alongside the developer reflections below.
+
+---
+
+## 0.1 Level 6 Improvements (implemented, with code links)
+
+Feedback from launch users directly drove the following shipped improvements. Each change is traceable to a specific diff:
+
+1. **One-click path to the live dapp (Get Started → /desk).** Reviewer and user feedback flagged that the landing page's CTAs only scrolled the page instead of reaching the product. Both the header and hero "Get Started" buttons now link straight into the deployed `/desk` workspace: `frontend-landing/app/page.tsx` (`header-cta` and `hero-actions` anchors → `/desk`).
+2. **Bootstrapped contract joining on the deployed app.** The Vercel deployment environment had no `NEXT_PUBLIC_DEFAULT_CONTRACT`, so the hosted app could not join a contract without manual input. We baked the deployed Preview contract address as a fallback in `frontend-landing/app/desk/page.tsx` (`DEFAULT_CONTRACT` fallback), so the live demo at https://night-deskv1.vercel.app/desk connects out of the box.
+3. **Hardened ZK asset pipeline for CI/deploys.** Early builds broke CI and Vercel because the frontend referenced circuit assets that only appeared after a manual compile. The contract build now copies `managed/night-desk/keys/*` and `zkir/*` into `frontend-landing/public/` with conditional guards (`contract/package.json`, `build` script), and a 5-job pipeline enforces it: `.github/workflows/ci.yml`.
+4. **Documentation base for reviewers.** Built `ARCHITECTURE.md`, `TESTING.md`, `USER-GUIDE.md`, `BRAND-BRIEF.md`, `X-PROFILE.md`, `CHANGELOG.md`, plus a verified compile-log section in `TESTING.md` documenting the 4 compiled circuits (`createInvoice`, `acceptInvoice`, `settleInvoice`, `cancelInvoice`).
 
 ---
 

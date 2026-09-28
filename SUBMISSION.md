@@ -36,7 +36,9 @@
 | **Public GitHub Repository** | ✓ Complete | [github.com/welson-ai/night-desk-risein](https://github.com/welson-ai/night-desk-risein) |
 | **Live Demo Link** | ✓ Deployed | [night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk) |
 | **Deployed Preprod Contract** | ✓ Verifiable | `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` (Midnight Preview) |
-| **57 Preview / Preprod User Wallets & Form** | ✓ Documented | `USERS.md` (57 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
+| **70 Preview / Preprod User Wallets & Form** | ✓ Documented | `USERS.md` (70 Unshielded Preview/Preprod addresses) & [Google Sheets Form](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing) |
+| **Level 6 Launch Users** | ✓ Documented | `LAUNCH_USERS.md` (30 distinct Preprod addresses, cross-checkable via the Google Sheets ledger) |
+| **Level 6 Improvements (with code links)** | ✓ Documented | `FEEDBACK.md` §0.1 — 4 shipped improvements, each linked to the exact code/diff |
 | **Feedback Loop Documentation** | ✓ Complete | `FEEDBACK.md` (Structured user feedback & developer reflections) |
 | **Test Output (3+ tests passing)** | ✓ Passing | 3 Vitest unit tests (`contract.test.ts`) passing successfully |
 | **CI/CD Pipeline (Workflow & Runs)** | ✓ Automated | `.github/workflows/ci.yml` (5 jobs: Lint, Build Contract, Test Contract, Build API, Build Frontend) |

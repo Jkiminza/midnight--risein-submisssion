@@ -2,6 +2,15 @@
 
 All notable changes to Night Desk (reverse chronological). The project began as a scaffolded Midnight Compact template and evolved into a deployed, CI/CD-backed, user-tested privacy invoicing dApp.
 
+## [v0.3.0] — 2026-09 — Level 6: launch users, feedback loop & redeployment
+
+- **`LAUNCH_USERS.md` added** — 30 distinct Midnight Preview unshielded Preprod addresses for the Level 6 launch cohort, each cross-checkable against the Google Sheets onboarding ledger.
+- **`FEEDBACK.md` §0.1 added** — 4 Level 6 improvements, each linked to the exact code that implements it (Get Started → `/desk`, contract-address fallback, hardened ZK asset pipeline, reviewer doc base).
+- **User feedback loop closed** — launch-user responses recorded in the tracking spreadsheet linked from `USERS.md`, `LAUNCH_USERS.md`, and `FEEDBACK.md`.
+- **Redeployment** — Preview contract `ca117f7f2c6596d1f38bd6ced85d81eb169ca0e47ccc1005cb351502476559b7` re-joined on Midnight Preview; dapp redeployed to https://night-deskv1.vercel.app/desk and the redeployment is noted in the README deployment table.
+- **`TESTING.md` §2 added** — reproducible compact-compile log listing the 4 compiled circuits (`createInvoice`, `acceptInvoice`, `settleInvoice`, `cancelInvoice`).
+- **README/SUBMISSION synchronized** — Level 6 users row now points at `LAUNCH_USERS.md`; reviewer-docs matrix and Level 6 checklist entries added.
+
 ## [v0.2.0] — 2026-09 — Level 5: users, docs & release hardening
 
 - **Live app** moved to the hosted Vercel project and linked in docs: https://night-deskv1.vercel.app/desk

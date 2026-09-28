@@ -1,0 +1,40 @@
+# Night Desk — Level 6: Launch Users Onboarding Ledger
+
+These 30 distinct Midnight Preview unshielded Preprod addresses belong to launch users onboarded during the Level 6 testing phase. They were collected from different individuals across the globe — including developer and tech communities — who tested the deployed dapp and reported back through the onboarding form.
+
+Reviewers can cross-check each address against the official Google Sheets ledger below.
+
+- **Onboarding / Feedback Ledger:** https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing
+
+## Level 6 Launch User Wallet Addresses
+
+1. `mn_addr_preview1lm5safed2jnkacdlphm7r0v8dll2zfpdn0z4f6e994v8qesv3xaq5cvdqc`
+2. `mn_addr_preview16r7sc4zg8j3e7pl92pzxfdlyhtrz02jc4vaws24cmq3a0cs8ptvqkjt8x2`
+3. `mn_addr_preview1y7v90kkak73wxknf9tyms7was5dd3ystdh5vkk5qvndp7580slashpr7s3`
+4. `mn_addr_preview1f56hqzve5sa7ztlr3yaurvl709zy5u9htm4exjmalvny89pvhpeqavzljq`
+5. `mn_addr_preview1v4uhqcwj57ydv8pvdkd820s6l8umzejr73vesfd3ey44z37ttmysatjk8q`
+6. `mn_addr_preview19uctjr3pk039htprntn2laeuyxmzxef3zkgjv9c4qqruv3npe6ssrr2pk5`
+7. `mn_addr_preview1tahw9pv8yh6d88ad8563yu2rjlvs0zunxfc2rl2qs2kcas3lg95qtygaxk`
+8. `mn_addr_preview13a0es55afqqwczla4mzhh943wsrpfsq425zq5qeh2vghmv8cnuqswcel3f`
+9. `mn_addr_preview1y2lvfppjxxm0d972gs73fj7ledc67qpy8l9ddz69c52rwkn4v8lsrw9w7r`
+10. `mn_addr_preview14ux68lrmtn3me2fcf4hy2kjv45pth0q2l67789jjxzuu6yyx2ses9s4kgk`
+11. `mn_addr_preview19y4jktd25ats866xdldjugmw5fr2frl3fv5wa86whvu94j42wlys7jnlxe`
+12. `mn_addr_preview1s965rm4gnjpx886nsf93kypgqmmysey6xl34avll79fzaca0xcyq22du5r`
+13. `mn_addr_preview1k7zv9avmh24qgh0fg53hp8t2xykslm0lpemtgwa3up2mymt53n9sgqs42q`
+14. `mn_addr_preview1yl0m3e2km9t298zemk0uy08t02trgpsyllx965kcwqndmrprlutqrzq55l`
+15. `mn_addr_preview1wt4kf0yjrlw7j5wh8rgw0u8mv4lj03twk3hz6qljfvmu9tspud3qmwpgp7`
+16. `mn_addr_preview1llyd7tlmyvcqg6w0q6hsdxkw6mecrpzzccj4khw0wyx05fym5taq67ure4`
+17. `mn_addr_preview1vjymjaxn07gghesv8awl6p3rp0xzkgeuw623qnj0peslz4gw3frsdntyar`
+18. `mn_addr_preview1sralraywxhgu2kuuepfde9rhptrqenae55qdcfx95kadfwawfy5qymjea6`
+19. `mn_addr_preview1mc45xh8l2qju9uctnnrl67rtja4g5t8m0ec33sjfzmlwnv7md2kqld4g2y`
+20. `mn_addr_preview1q9k8fh05k4tn2zscmctt2hxac9636gqaz8qmgpp88ccew9pz0rtqejmmr3`
+21. `mn_addr_preview1fpccx2eyqdfr46lyhexmctmrctfm2qfy9jaa37y9l96uzn3aqkesr92uhq`
+22. `mn_addr_preview1r64v4kfavwv4wk8dmypy2hjnrv4ueqerh9vpsjkzpwyrvpfjpjzs9w72y3`
+23. `mn_addr_preview1z7fxc0pr373mxg8gz087mkvyr3n5ualpe70lv737atpv9wkca38shlrswh`
+24. `mn_addr_preview14dxswlgp34uumk86lrqsyyml9sez4pw8sz8mg0e3hz9097jsl22q7lyv2p`
+25. `mn_addr_preview1dm4j2jsrs4p85xjkelssgajycu9yx9v5q5rf6kx4htylqcyj0w4supgfxy`
+26. `mn_addr_preview196pydfrckqs2l07nu9vlqrqn8l5uzulrj9r302wd3px66z39fwlsv5ndrz`
+27. `mn_addr_preview13xn8c32etejkzvlpykh2rquv2tacw48m9ulp49gwrg6pj5amurastrmxws`
+28. `mn_addr_preview10wqwjnpjm3h7v49r8tdac6c6uulhm9gf04ydr49n300yufzfdqjq5m0ek2`
+29. `mn_addr_preview1f95990p5ju65tyhx70w65usutjhpmfjjaeyzm7kszltl8fsmavhsxlgyr2`
+30. `mn_addr_preview1jqxgw20cpq0xfn07xfuwjn2gkqsgldhh5etwpzlyzhmt30hrt2jqyc9nxc`

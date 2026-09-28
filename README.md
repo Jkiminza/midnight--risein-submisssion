@@ -49,8 +49,9 @@ For reviewers and judges, these documents complement the README:
 - [**TESTING.md**](TESTING.md) — test strategy, the 3 passing contract tests, and the 5-job CI/CD pipeline.
 - [**SUBMISSION.md**](SUBMISSION.md) — full Level 2–5 submission checklist and evidence.
 - [**PROPOSAL.md**](PROPOSAL.md) — mainnet transition & product roadmap.
-- [**FEEDBACK.md**](FEEDBACK.md) — developer experience reflections.
+- [**FEEDBACK.md**](FEEDBACK.md) — developer experience reflections and Level 6 improvements with code links.
 - [**USERS.md**](USERS.md) — onboarded Preview wallet address ledger.
+- [**LAUNCH_USERS.md**](LAUNCH_USERS.md) — Level 6 launch users (30 distinct Preprod addresses).
 - [**CHANGELOG.md**](CHANGELOG.md) — chronological summary of milestones and fixes.
 - [**BRAND-BRIEF.md**](BRAND-BRIEF.md) — brand identity reference (palette, type, voice).
 - [**X-PROFILE.md**](X-PROFILE.md) — product X profile and content playbook.
@@ -116,8 +117,10 @@ Night Desk is built on Midnight's zero-knowledge architecture to guarantee stric
 | Circuit identity | `night-desk` |
 | **Live App URL** | **[night-deskv1.vercel.app/desk](https://night-deskv1.vercel.app/desk)** |
 | **Level 5 Users Form** | **[Google Sheets Preprod Ledger](https://docs.google.com/spreadsheets/d/17fz2AZnhXkLqJwCI4K-1PFxm8261BbpmAplVcndfHs0/edit?usp=sharing)** |
+| **Level 6 Launch Users** | **[LAUNCH_USERS.md](LAUNCH_USERS.md)** — 30 distinct Preprod addresses |
+| **Last redeployment** | 2026-09-26 — contract `ca117f7f…` re-joined on Preview, dapp redeployed to the URL above |
 
-The address is also baked into the frontend (`frontend-landing/.env.preview → NEXT_PUBLIC_DEFAULT_CONTRACT`), so the UI can join the deployed contract straight away.
+The address is also baked into the frontend (`frontend-landing/.env.preview → NEXT_PUBLIC_DEFAULT_CONTRACT`), with a fallback to the same address in the desk page so the Vercel deployment joins the deployed contract out of the box.
 
 ## Installation
 
